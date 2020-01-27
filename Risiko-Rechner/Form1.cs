@@ -41,17 +41,12 @@ namespace Risiko_Rechner
                 return;
             }
 
-            foreach (Unit einheit in Units)
-            {
-                if (einheit.name == name1)
-                {
-                    bauplan1 = einheit;
-                }
-                if (einheit.name == name2)
-                {
-                    bauplan2 = einheit;
-                }
-            }
+
+            //hab mal das foreach zu einer Linq abfrage geändert -> einfacher zu lesen
+
+            bauplan1 = Units.Where(a => a.name == name1).FirstOrDefault();
+
+            bauplan2 = Units.Where(a => a.name == name2).FirstOrDefault();
 
             anz1 = (int)numericUpDown1.Value;
             anz2 = (int)numericUpDown2.Value;
@@ -69,6 +64,9 @@ namespace Risiko_Rechner
 
             kaempfer1 = (Unit)bauplan1.Clone();
             kaempfer2 = (Unit)bauplan2.Clone();
+
+            //So bitte bitte mal die Variablen namen ausschreiben und vorallem sinvoll wählen
+            // -> was macht bauplan wofür brauch ich den ? warum ist er da
 
             do
             {
@@ -113,185 +111,103 @@ namespace Risiko_Rechner
                 Textausgabe.Text += Environment.NewLine + Environment.NewLine + "höchster Angreifer Würfel: " + Convert.ToString(spieler11) +
                     Environment.NewLine + "höchster Verteidiger Würfel: " + Convert.ToString(spieler21);
 
-                if (spieler11 > spieler21)
-                {
-                    //Würfel ergb.
-                    Textausgabe.Text += Environment.NewLine + "Angreifer führt Attacke aus:";
-
-                    int remainingArmor2 = kaempfer2.armor - kaempfer1.antiArmor;
-                    //Armortest report
-                    Textausgabe.Text += Environment.NewLine + "Rüstungswert des Verteidigers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor2);
-
-                    if (remainingArmor2 < 0)
-                    { remainingArmor2 = 0; }
-
-                    if (remainingArmor2 - kaempfer1.attackDamage >= 0)
-                    {
-                        // TEXT: ABBRUCH DES KAMPFES, 1 zieht sich zurück
-                        Textausgabe.Text += Environment.NewLine + "Angreifer kann die Panzerung des Verteidigers nicht durchdringen, er muss sich zurückziehen";
-                        return;
-                    }
-
-                    if (remainingArmor2 == 0)
-                    {
-                        kaempfer2.hitpoints = kaempfer2.hitpoints - kaempfer1.attackDamage;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden,"
-                            + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-
-                    }
-                    else
-                    {
-                        kaempfer2.hitpoints = kaempfer2.hitpoints - kaempfer1.attackDamage + remainingArmor2;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
-                            " abwehren" + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-                    }
-
-                }
-
-                else
-                {
-                    //würfel ergebnis
-                    Textausgabe.Text += Environment.NewLine + "Verteidiger führt Attacke aus:";
-
-                    int remainingArmor1 = kaempfer1.armor - kaempfer2.antiArmor;
-                    //Armortest report
-                    Textausgabe.Text += Environment.NewLine + "Rüstungswert des Angreifers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor1);
-
-                    if (remainingArmor1 < 0)
-                    { remainingArmor1 = 0; }
-
-                    if (remainingArmor1 - kaempfer2.attackDamage >= 0)
-                    {
-                        // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
-                        Textausgabe.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
-                        return;
-                    }
-
-                    if (remainingArmor1 == 0)
-                    {
-                        kaempfer1.hitpoints = kaempfer1.hitpoints - kaempfer2.attackDamage;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden,"
-                            + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-
-                    }
-                    else
-                    {
-                        kaempfer1.hitpoints = kaempfer1.hitpoints - kaempfer2.attackDamage + remainingArmor1;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
-                            " abwehren" + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-                    }
-
-                }
-
-
-
+                WuerfelErgebnis(spieler11, spieler21); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
                 // würfel ausgabe
                 Textausgabe.Text += Environment.NewLine + Environment.NewLine + "zweithöchster Angreifer Würfel: " + Convert.ToString(spieler12) +
                     Environment.NewLine + "zweithöchsterhöchster Verteidiger Würfel: " + Convert.ToString(spieler22);
 
-
-                if (spieler12 > spieler22)
-                {
-                    //Würfel ergb.
-                    Textausgabe.Text += Environment.NewLine + "Angreifer führt Attacke aus:";
-
-                    int remainingArmor2 = kaempfer2.armor - kaempfer1.antiArmor;
-                    //Armortest report
-                    Textausgabe.Text += Environment.NewLine + "Rüstungswert des Verteidigers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor2);
-
-                    if (remainingArmor2 < 0)
-                    { remainingArmor2 = 0; }
-
-                    if (remainingArmor2 - kaempfer1.attackDamage >= 0)
-                    {
-                        // TEXT: ABBRUCH DES KAMPFES, 1 zieht sich zurück
-                        Textausgabe.Text += Environment.NewLine + "Angreifer kann die Panzerung des Verteidigers nicht durchdringen, er muss sich zurückziehen";
-                        return;
-                    }
-
-                    if (remainingArmor2 == 0)
-                    {
-                        kaempfer2.hitpoints = kaempfer2.hitpoints - kaempfer1.attackDamage;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden,"
-                            + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-                    }
-                    else
-                    {
-                        kaempfer2.hitpoints = kaempfer2.hitpoints - kaempfer1.attackDamage + remainingArmor2;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
-                            " abwehren" + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2); ;
-                    }
-
-
-                }
-
-                else
-                {
-                    //würfel ergebnis
-                    Textausgabe.Text += Environment.NewLine + "Verteidiger führt Attacke aus:";
-
-                    int remainingArmor1 = kaempfer1.armor - kaempfer2.antiArmor;
-                    //Armortest report
-                    Textausgabe.Text += Environment.NewLine + "Rüstungswert des Angreifers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor1);
-
-                    if (remainingArmor1 < 0)
-                    { remainingArmor1 = 0; }
-
-                    if (remainingArmor1 - kaempfer2.attackDamage >= 0)
-                    {
-                        // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
-                        Textausgabe.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
-                        return;
-                    }
-
-                    if (remainingArmor1 == 0)
-                    {
-                        kaempfer1.hitpoints = kaempfer1.hitpoints - kaempfer2.attackDamage;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden,"
-                            + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-                    }
-                    else
-                    {
-                        kaempfer1.hitpoints = kaempfer1.hitpoints - kaempfer2.attackDamage + remainingArmor1;
-                        //Dmg and HP-loss
-                        Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
-                            " abwehren" + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitpoints) + " HP";
-                        Killcheck(kaempfer1.hitpoints, kaempfer2.hitpoints);
-                        Victorycheck(anz1, anz2);
-                    }
-
-                }
-
-
-
+                WuerfelErgebnis(spieler12, spieler22);
 
             } while (anz1 > 0 && anz2 > 0);
-           
+
 
         }
 
+        private void Angreifer()
+        {
+            //Würfel ergb.
+            Textausgabe.Text += Environment.NewLine + "Angreifer führt Attacke aus:";
+
+            int remainingArmor2 = kaempfer2.armor - kaempfer1.antiArmor;
+            //Armortest report
+            Textausgabe.Text += Environment.NewLine + "Rüstungswert des Verteidigers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor2);
+
+            if (remainingArmor2 < 0)
+            { remainingArmor2 = 0; }
+
+            if (remainingArmor2 - kaempfer1.attackDamage >= 0)
+            {
+                // TEXT: ABBRUCH DES KAMPFES, 1 zieht sich zurück
+                Textausgabe.Text += Environment.NewLine + "Angreifer kann die Panzerung des Verteidigers nicht durchdringen, er muss sich zurückziehen";
+                return;
+            }
+
+            if (remainingArmor2 == 0)
+            {
+                kaempfer2.hitPoints = kaempfer2.hitPoints - kaempfer1.attackDamage;
+                //Dmg and HP-loss
+                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden,"
+                    + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitPoints) + " HP";
+            }
+            else
+            {
+                kaempfer2.hitPoints = kaempfer2.hitPoints - kaempfer1.attackDamage + remainingArmor2;
+                //Dmg and HP-loss
+                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
+                    " abwehren" + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitPoints) + " HP";
+            }
+        }
+
+        private void Verteidiger()
+        {
+            //würfel ergebnis
+            Textausgabe.Text += Environment.NewLine + "Verteidiger führt Attacke aus:";
+
+            int remainingArmor1 = kaempfer1.armor - kaempfer2.antiArmor;
+            //Armortest report
+            Textausgabe.Text += Environment.NewLine + "Rüstungswert des Angreifers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor1);
+
+            if (remainingArmor1 < 0)
+            { remainingArmor1 = 0; }
+
+            if (remainingArmor1 - kaempfer2.attackDamage >= 0)
+            {
+                // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
+                Textausgabe.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
+                return;
+            }
+
+            if (remainingArmor1 == 0)
+            {
+                kaempfer1.hitPoints = kaempfer1.hitPoints - kaempfer2.attackDamage;
+                //Dmg and HP-loss
+                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden,"
+                    + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitPoints) + " HP";
+            }
+            else
+            {
+                kaempfer1.hitPoints = kaempfer1.hitPoints - kaempfer2.attackDamage + remainingArmor1;
+                //Dmg and HP-loss
+                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
+                    " abwehren" + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitPoints) + " HP";
+            }
+        }
+        private void WuerfelErgebnis(int spieler11, int spieler21)
+        {
+            if (spieler11 > spieler21)
+            {
+                Angreifer();
+
+            }
+            else
+            {
+                Verteidiger();
+            }
+
+            Killcheck(kaempfer1.hitPoints, kaempfer2.hitPoints);
+            Victorycheck(anz1, anz2);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -309,7 +225,7 @@ namespace Risiko_Rechner
 
 
         }
-
+        //umbenennen !
         private void button2_Click(object sender, EventArgs e)
         {
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
@@ -319,7 +235,9 @@ namespace Risiko_Rechner
             numericUpDown2.Value = 0;
 
         }
-
+        /// <summary>
+        /// Auch hier bitte die namen ausschreiben, ich denke ich weiß was das heißen soll aber is mega unübersichtlich 
+        /// </summary>
         private void Killcheck(int k1hp, int k2hp)
         {
             if (k1hp <= 0)
@@ -342,7 +260,9 @@ namespace Risiko_Rechner
 
 
         }
-
+        /// <summary>
+        /// Bitte hier auch was is z1 und z2 das is wenn man nur die methode sich anschaut absolut nicht ersichtlich !
+        /// </summary>
         private void Victorycheck(int z1, int z2)
         {
             if (z1 == 0)

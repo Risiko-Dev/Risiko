@@ -11,14 +11,14 @@ namespace Risiko_Rechner
     {
         public int antiArmor;
         public int armor;
-        public int hitpoints;
+        public int hitPoints;
         public int attackDamage;
         public string name;
 
-        public Unit(string name, int hitpoints, int armor, int attackDamage, int antiArmor) 
+        public Unit(string name, int hitPoints, int armor, int attackDamage, int antiArmor) 
         {
             this.name = name;
-            this.hitpoints = hitpoints;
+            this.hitPoints = hitPoints;
             this.armor = armor;
             this.attackDamage = attackDamage;
             this.antiArmor = antiArmor;
