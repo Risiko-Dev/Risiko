@@ -65,7 +65,7 @@ namespace Risiko_Rechner
             kaempfer1 = (Unit)bauplan1.Clone();
             kaempfer2 = (Unit)bauplan2.Clone();
 
-            //So bitte bitte mal die Variablen namen ausschreiben und vorallem sinvoll wählen
+            //So bitte bitte mal die Variablennamen ausschreiben und vorallem sinvoll wählen
             // -> was macht bauplan wofür brauch ich den ? warum ist er da
 
             do
@@ -233,6 +233,7 @@ namespace Risiko_Rechner
             comboBox2.Text = "";
             numericUpDown1.Value = 0;
             numericUpDown2.Value = 0;
+            Runde = 0;
 
         }
         /// <summary>
@@ -246,7 +247,7 @@ namespace Risiko_Rechner
                 kaempfer1 = (Unit)bauplan1.Clone();
                 //Kill anouncment
                 Textausgabe.Text += Environment.NewLine + "Angreifer verliert eine Einheit, die nächste rutscht aber schon nach!" +
-                    Environment.NewLine + "Angreifer hat noch " + Convert.ToString(anz2) + " Einheiten übrig.";
+                    Environment.NewLine + "Angreifer hat noch " + Convert.ToString(anz1) + " Einheiten übrig.";
             }
 
             if (k2hp <= 0)
