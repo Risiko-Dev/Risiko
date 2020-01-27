@@ -1,0 +1,9 @@
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\bin\Debug\Risiko-Rechner.exe.config
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\obj\Debug\Risiko-Rechner.csprojResolveAssemblyReference.cache
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\obj\Debug\Risiko_Rechner.Form1.resources
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\obj\Debug\Risiko_Rechner.Properties.Resources.resources
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\obj\Debug\Risiko-Rechner.csproj.GenerateResource.Cache
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\bin\Debug\Risiko-Rechner.exe
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\bin\Debug\Risiko-Rechner.pdb
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\obj\Debug\Risiko-Rechner.exe
+D:\Projekte\Risiko\Risiko-Rechner\Risiko-Rechner\obj\Debug\Risiko-Rechner.pdb
