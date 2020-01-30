@@ -16,3 +16,12 @@ C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko_Rechner.Properties.
 C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.csproj.GenerateResource.cache
 C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.exe
 C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.pdb
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\bin\Debug\Risiko-Rechner.exe.config
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\bin\Debug\Risiko-Rechner.exe
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\bin\Debug\Risiko-Rechner.pdb
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.csprojAssemblyReference.cache
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\obj\Debug\Risiko_Rechner.Form1.resources
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\obj\Debug\Risiko_Rechner.Properties.Resources.resources
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.csproj.GenerateResource.cache
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.exe
+C:\Users\Dominik\Desktop\asd\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.pdb
