@@ -68,12 +68,17 @@ namespace Risiko_Rechner
             //So bitte bitte mal die Variablennamen ausschreiben und vorallem sinvoll wählen
             // -> was macht bauplan wofür brauch ich den ? warum ist er da
 
+            List<int> S1W = new List<int>();
+            List<int> S2W = new List<int>();
+
+            Random Wuerfel = new Random();
             do
             {
+                S1W.Clear();
+                S2W.Clear();
                 Runde++;
                 Textausgabe.Text += Environment.NewLine + Environment.NewLine + Environment.NewLine + "Kampfrunde: " + Convert.ToString(Runde) + Environment.NewLine;
 
-                Random Wuerfel = new Random();
                 int S1W1 = Wuerfel.Next(1, 7);
                 int S1W2 = Wuerfel.Next(1, 7);
                 int S1W3 = Wuerfel.Next(1, 7);
@@ -89,8 +94,6 @@ namespace Risiko_Rechner
                     + Convert.ToString(S2W2);
 
 
-                List<int> S1W = new List<int>();
-                List<int> S2W = new List<int>();
 
                 S1W.Add(S1W1);
                 S1W.Add(S1W2);
@@ -102,22 +105,22 @@ namespace Risiko_Rechner
                 S1W.Sort();
                 S2W.Sort();
 
-                int spieler11 = S1W[2];
-                int spieler12 = S1W[1];
-                int spieler21 = S2W[1];
-                int spieler22 = S2W[0];
+                S1W1 = S1W[2];
+                S1W2 = S1W[1];
+                S2W1 = S2W[1];
+                S2W2 = S2W[0];
 
                 // würfel ausgabe
-                Textausgabe.Text += Environment.NewLine + Environment.NewLine + "höchster Angreifer Würfel: " + Convert.ToString(spieler11) +
-                    Environment.NewLine + "höchster Verteidiger Würfel: " + Convert.ToString(spieler21);
+                Textausgabe.Text += Environment.NewLine + Environment.NewLine + "höchster Angreifer Würfel: " + Convert.ToString(S1W1) +
+                    Environment.NewLine + "höchster Verteidiger Würfel: " + Convert.ToString(S1W2);
 
-                WuerfelErgebnis(spieler11, spieler21); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
+                WuerfelErgebnis(S1W1, S2W1); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
                 // würfel ausgabe
-                Textausgabe.Text += Environment.NewLine + Environment.NewLine + "zweithöchster Angreifer Würfel: " + Convert.ToString(spieler12) +
-                    Environment.NewLine + "zweithöchsterhöchster Verteidiger Würfel: " + Convert.ToString(spieler22);
+                Textausgabe.Text += Environment.NewLine + Environment.NewLine + "zweithöchster Angreifer Würfel: " + Convert.ToString(S2W1) +
+                    Environment.NewLine + "zweithöchsterhöchster Verteidiger Würfel: " + Convert.ToString(S2W2);
 
-                WuerfelErgebnis(spieler12, spieler22);
+                WuerfelErgebnis(S1W2, S2W2);
 
             } while (anz1 > 0 && anz2 > 0);
 
