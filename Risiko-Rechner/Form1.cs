@@ -44,9 +44,9 @@ namespace Risiko_Rechner
 
             //hab mal das foreach zu einer Linq abfrage geändert -> einfacher zu lesen
 
-            bauplan1 = Units.Where(a => a.name == name1).FirstOrDefault();
+            bauplan1 = Units.Where(a => a.Name == name1).FirstOrDefault();
 
-            bauplan2 = Units.Where(a => a.name == name2).FirstOrDefault();
+            bauplan2 = Units.Where(a => a.Name == name2).FirstOrDefault();
 
             anz1 = (int)numericUpDown1.Value;
             anz2 = (int)numericUpDown2.Value;
@@ -129,14 +129,14 @@ namespace Risiko_Rechner
             //Würfel ergb.
             Textausgabe.Text += Environment.NewLine + "Angreifer führt Attacke aus:";
 
-            int remainingArmor2 = kaempfer2.armor - kaempfer1.antiArmor;
+            int remainingArmor2 = kaempfer2.Armor - kaempfer1.AntiArmor;
             //Armortest report
             Textausgabe.Text += Environment.NewLine + "Rüstungswert des Verteidigers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor2);
 
             if (remainingArmor2 < 0)
             { remainingArmor2 = 0; }
 
-            if (remainingArmor2 - kaempfer1.attackDamage >= 0)
+            if (remainingArmor2 - kaempfer1.AttackDamage >= 0)
             {
                 // TEXT: ABBRUCH DES KAMPFES, 1 zieht sich zurück
                 Textausgabe.Text += Environment.NewLine + "Angreifer kann die Panzerung des Verteidigers nicht durchdringen, er muss sich zurückziehen";
@@ -145,17 +145,17 @@ namespace Risiko_Rechner
 
             if (remainingArmor2 == 0)
             {
-                kaempfer2.hitPoints = kaempfer2.hitPoints - kaempfer1.attackDamage;
+                kaempfer2.HitPoints = kaempfer2.HitPoints - kaempfer1.AttackDamage;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden,"
-                    + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.AttackDamage) + " Schaden,"
+                    + Environment.NewLine + kaempfer2.Name + " hat noch " + Convert.ToString(kaempfer2.HitPoints) + " HP";
             }
             else
             {
-                kaempfer2.hitPoints = kaempfer2.hitPoints - kaempfer1.attackDamage + remainingArmor2;
+                kaempfer2.HitPoints = kaempfer2.HitPoints - kaempfer1.AttackDamage + remainingArmor2;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
-                    " abwehren" + Environment.NewLine + kaempfer2.name + " hat noch " + Convert.ToString(kaempfer2.hitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
+                    " abwehren" + Environment.NewLine + kaempfer2.Name + " hat noch " + Convert.ToString(kaempfer2.HitPoints) + " HP";
             }
         }
 
@@ -164,14 +164,14 @@ namespace Risiko_Rechner
             //würfel ergebnis
             Textausgabe.Text += Environment.NewLine + "Verteidiger führt Attacke aus:";
 
-            int remainingArmor1 = kaempfer1.armor - kaempfer2.antiArmor;
+            int remainingArmor1 = kaempfer1.Armor - kaempfer2.AntiArmor;
             //Armortest report
             Textausgabe.Text += Environment.NewLine + "Rüstungswert des Angreifers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor1);
 
             if (remainingArmor1 < 0)
             { remainingArmor1 = 0; }
 
-            if (remainingArmor1 - kaempfer2.attackDamage >= 0)
+            if (remainingArmor1 - kaempfer2.AttackDamage >= 0)
             {
                 // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
                 Textausgabe.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
@@ -180,17 +180,17 @@ namespace Risiko_Rechner
 
             if (remainingArmor1 == 0)
             {
-                kaempfer1.hitPoints = kaempfer1.hitPoints - kaempfer2.attackDamage;
+                kaempfer1.HitPoints = kaempfer1.HitPoints - kaempfer2.AttackDamage;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden,"
-                    + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.AttackDamage) + " Schaden,"
+                    + Environment.NewLine + kaempfer1.Name + " hat noch " + Convert.ToString(kaempfer1.HitPoints) + " HP";
             }
             else
             {
-                kaempfer1.hitPoints = kaempfer1.hitPoints - kaempfer2.attackDamage + remainingArmor1;
+                kaempfer1.HitPoints = kaempfer1.HitPoints - kaempfer2.AttackDamage + remainingArmor1;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.attackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
-                    " abwehren" + Environment.NewLine + kaempfer1.name + " hat noch " + Convert.ToString(kaempfer1.hitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
+                    " abwehren" + Environment.NewLine + kaempfer1.Name + " hat noch " + Convert.ToString(kaempfer1.HitPoints) + " HP";
             }
         }
         private void WuerfelErgebnis(int spieler11, int spieler21)
@@ -205,7 +205,7 @@ namespace Risiko_Rechner
                 Verteidiger();
             }
 
-            Killcheck(kaempfer1.hitPoints, kaempfer2.hitPoints);
+            Killcheck(kaempfer1.HitPoints, kaempfer2.HitPoints);
             Victorycheck(anz1, anz2);
         }
 
@@ -217,8 +217,8 @@ namespace Risiko_Rechner
 
             foreach (Unit einheit in Units)
             {
-                comboBox1.Items.Add(einheit.name);
-                comboBox2.Items.Add(einheit.name);
+                comboBox1.Items.Add(einheit.Name);
+                comboBox2.Items.Add(einheit.Name);
             }
 
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
