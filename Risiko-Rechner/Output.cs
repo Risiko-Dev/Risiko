@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Risiko_Rechner
 {
-   public class Output
+    public class Output
     {
         public bool MissingUnitNames(string name1, string name2, System.Windows.Forms.TextBox outputTextbox)
         {
             if (name1 == "")
             {
-                outputTextbox.Text +=  Environment.NewLine + "Angreifer, wählen Sie eine Einheitenklasse";
+                outputTextbox.Text += Environment.NewLine + "Angreifer, wählen Sie eine Einheitenklasse";
                 return true;
             }
             if (name2 == "")
@@ -22,7 +22,7 @@ namespace Risiko_Rechner
             }
             return false;
         }
-        public bool MissingUnitNumbers(int unitNumerAttacker ,int unitNumberDefender ,System.Windows.Forms.TextBox outputTextbox)
+        public bool MissingUnitNumbers(int unitNumerAttacker, int unitNumberDefender, System.Windows.Forms.TextBox outputTextbox)
         {
 
             if (unitNumerAttacker == 0)
@@ -39,26 +39,33 @@ namespace Risiko_Rechner
         }
         public void StartupText(System.Windows.Forms.TextBox outputTextbox, int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
         {
-            outputTextbox.Text += Environment.NewLine + Environment.NewLine + Environment.NewLine + "Kampfrunde: " + Convert.ToString(Round) + Environment.NewLine;
+            MakeSpace(outputTextbox, 3);
+            outputTextbox.Text += $"Kampfrunde: {Round}";
             //Würfel:
-            outputTextbox.Text += Environment.NewLine + " Angreifer würfelt: " + Convert.ToString(playerOneDiceOne) + ", "
-                + Convert.ToString(playerOneDiceOne) + " und " + Convert.ToString(playerOneDiceTwo);
+            outputTextbox.Text += $"{Environment.NewLine}Angreifer würfelt: {playerOneDiceOne}, {playerOneDiceOne} und {playerOneDiceTwo}";
             //Würfel
-            outputTextbox.Text += Environment.NewLine + " Verteidiger würfelt: " + Convert.ToString(playerTwoDiceOne) + " und "
-                + Convert.ToString(playerTwoDiceTwo);
+            outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
         }
-        public void HighestDice(System.Windows.Forms.TextBox outputTextbox, int S1W1, int S1W2)
+        public void HighestDice(System.Windows.Forms.TextBox outputTextbox, int playerOneFirstDice, int playerTwoFirstDice)
         {
             // würfel ausgabe
-            outputTextbox.Text += Environment.NewLine + Environment.NewLine + "höchster Angreifer Würfel: " + Convert.ToString(S1W1) +
-                Environment.NewLine + "höchster Verteidiger Würfel: " + Convert.ToString(S1W2);
+            MakeSpace(outputTextbox, 2);
+            outputTextbox.Text += $"höchster Angreifer Würfel: {playerOneFirstDice}{Environment.NewLine}höchster Verteidiger Würfel: {playerTwoFirstDice}";
         }
 
-        public void SecondHighestDice(System.Windows.Forms.TextBox outputTextbox,int S2W1, int S2W2)
+        private static void MakeSpace(System.Windows.Forms.TextBox outputTextbox, int blankLineAmount)
+        {
+            for (int i = 0; i < blankLineAmount; i++)
+            {
+                outputTextbox.Text += Environment.NewLine;
+            }
+        }
+
+        public void SecondHighestDice(System.Windows.Forms.TextBox outputTextbox, int playerOneSecondDice, int playerTwoSecondDice)
         {
             // würfel ausgabe
-            outputTextbox.Text += Environment.NewLine + Environment.NewLine + "zweithöchster Angreifer Würfel: " + Convert.ToString(S2W1) +
-                Environment.NewLine + "zweithöchsterhöchster Verteidiger Würfel: " + Convert.ToString(S2W2);
+            MakeSpace(outputTextbox, 2);
+            outputTextbox.Text += $"zweithöchster Angreifer Würfel: {playerOneSecondDice}.{Environment.NewLine}zweithöchsterhöchster Verteidiger Würfel:{playerTwoSecondDice}";
         }
     }
 }

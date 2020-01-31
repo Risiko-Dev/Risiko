@@ -14,8 +14,8 @@ namespace Risiko_Rechner
     public partial class Form1 : Form
     {
         List<Unit> Units = new List<Unit>();
-        int Runde = 0, anz1 = 0, anz2 = 0;
-        Unit kaempfer1 = null, kaempfer2 = null;
+        int Round = 0, playerOneUnitsAlive = 0, playerTwoUnitsAlive = 0;
+        Unit playerOneUnit = null, playerTwoUnit = null;
         Unit bauplan1 = null;
         Unit bauplan2 = null;
         bool victory = false;
@@ -33,19 +33,19 @@ namespace Risiko_Rechner
             string name1 = comboBox1.Text;
             string name2 = comboBox2.Text;
 
-            anz1 = (int)numericUpDown1.Value;
-            anz2 = (int)numericUpDown2.Value;
+            playerOneUnitsAlive = (int)numericUpDown1.Value;
+            playerTwoUnitsAlive = (int)numericUpDown2.Value;
 
-            var readyForFight = !(outputter.MissingUnitNames(name1, name2, Textausgabe) || outputter.MissingUnitNumbers(anz1, anz2, Textausgabe));
+            var readyForFight = !(outputter.MissingUnitNames(name1, name2, Textausgabe) || outputter.MissingUnitNumbers(playerOneUnitsAlive, playerTwoUnitsAlive, Textausgabe));
             if (readyForFight)
             {
-                Fight(name1, name2);
+                Setup(name1, name2);
             }
 
 
         }
 
-        private void Fight(string name1, string name2)
+        private void Setup(string name1, string name2)
         {
             //hab mal das foreach zu einer Linq abfrage geändert -> einfacher zu lesen
 
@@ -53,71 +53,78 @@ namespace Risiko_Rechner
 
             bauplan2 = Units.Where(a => a.Name == name2).FirstOrDefault();
 
-            kaempfer1 = (Unit)bauplan1.Clone();
-            kaempfer2 = (Unit)bauplan2.Clone();
+            playerOneUnit = (Unit)bauplan1.Clone();
+            playerTwoUnit = (Unit)bauplan2.Clone();
 
-            //So bitte bitte mal die Variablennamen ausschreiben und vorallem sinvoll wählen
-            // -> was macht bauplan wofür brauch ich den ? warum ist er da
+            Fight();
+        }
 
-            List<int> S1W = new List<int>();
-            List<int> S2W = new List<int>();
-
-            Random Wuerfel = new Random();
-            do
+        private void Fight()
+        {
+           do
             {
-                S1W.Clear();
-                S2W.Clear();
-                Runde++;
 
-                int S1W1 = Wuerfel.Next(1, 7);
-                int S1W2 = Wuerfel.Next(1, 7);
-                int S1W3 = Wuerfel.Next(1, 7);
+                Round++;
+                int playerOneDiceOne, playerOneDiceTwo, playerTwoDiceOne, playerTwoDiceTwo;
+                RollDices(out playerOneDiceOne, out playerOneDiceTwo, out playerTwoDiceOne, out playerTwoDiceTwo);
+                outputter.StartupText(Textausgabe, playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
+                outputter.HighestDice(Textausgabe, playerOneDiceOne, playerOneDiceTwo);
 
-                int S2W1 = Wuerfel.Next(1, 7);
-                int S2W2 = Wuerfel.Next(1, 7);
-
-                S1W.Add(S1W1);
-                S1W.Add(S1W2);
-                S1W.Add(S1W3);
-
-                S2W.Add(S2W1);
-                S2W.Add(S2W2);
-
-                S1W.Sort();
-                S2W.Sort();
-
-                S1W1 = S1W[2];
-                S1W2 = S1W[1];
-                S2W1 = S2W[1];
-                S2W2 = S2W[0];
-                outputter.StartupText(Textausgabe, S1W1, S2W1, S1W2, S2W2, Runde);
-                outputter.HighestDice(Textausgabe, S1W1, S1W2);
-
-                WuerfelErgebnis(S1W1, S2W1); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
+                WuerfelErgebnis(playerOneDiceOne, playerTwoDiceOne); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
                 if (!victory)
                 {
-                    outputter.SecondHighestDice(Textausgabe,S2W1, S2W2);
-                    WuerfelErgebnis(S1W2, S2W2);
+                    outputter.SecondHighestDice(Textausgabe, playerTwoDiceOne, playerTwoDiceTwo);
+                    WuerfelErgebnis(playerOneDiceTwo, playerTwoDiceTwo);
                 }
 
-            } while ((anz1 > 0 && anz2 > 0) && !victory);
+            } while ((playerOneUnitsAlive > 0 && playerTwoUnitsAlive > 0) && !victory);
         }
 
+        private void RollDices(out int playerOneDiceOne, out int playerOneDiceTwo, out int playerTwoDiceOne, out int playerTwoDiceTwo)
+        {
+            List<int> playerOneDices = new List<int>();
+            List<int> PlayerTwoDices = new List<int>();
+
+            Random Wuerfel = new Random();
+            playerOneDices.Clear();
+            PlayerTwoDices.Clear();
+
+            playerOneDiceOne = Wuerfel.Next(1, 7);
+            playerOneDiceTwo = Wuerfel.Next(1, 7);
+            var S1W3 = Wuerfel.Next(1, 7);
+
+            playerTwoDiceOne = Wuerfel.Next(1, 7);
+            playerTwoDiceTwo = Wuerfel.Next(1, 7);
+            playerOneDices.Add(playerOneDiceOne);
+            playerOneDices.Add(playerOneDiceTwo);
+            playerOneDices.Add(S1W3);
+
+            PlayerTwoDices.Add(playerTwoDiceOne);
+            PlayerTwoDices.Add(playerTwoDiceTwo);
+
+            playerOneDices.Sort();
+            PlayerTwoDices.Sort();
+
+            playerOneDiceOne = playerOneDices[2];
+            playerOneDiceTwo = playerOneDices[1];
+            playerTwoDiceOne = PlayerTwoDices[1];
+            playerTwoDiceTwo = PlayerTwoDices[0];
+        }
 
         private bool Angreifer()
         {
             //Würfel ergb.
             Textausgabe.Text += Environment.NewLine + "Angreifer führt Attacke aus:";
 
-            int remainingArmor2 = kaempfer2.Armor - kaempfer1.AntiArmor;
+            int remainingArmor2 = playerTwoUnit.Armor - playerOneUnit.AntiArmor;
             //Armortest report
             Textausgabe.Text += Environment.NewLine + "Rüstungswert des Verteidigers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor2);
 
             if (remainingArmor2 < 0)
             { remainingArmor2 = 0; }
 
-            if (remainingArmor2 - kaempfer1.AttackDamage >= 0)
+            if (remainingArmor2 - playerOneUnit.AttackDamage >= 0)
             {
                 // TEXT: ABBRUCH DES KAMPFES, 1 zieht sich zurück
                 Textausgabe.Text += Environment.NewLine + "Angreifer kann die Panzerung des Verteidigers nicht durchdringen, er muss sich zurückziehen";
@@ -126,17 +133,17 @@ namespace Risiko_Rechner
 
             if (remainingArmor2 == 0)
             {
-                kaempfer2.HitPoints = kaempfer2.HitPoints - kaempfer1.AttackDamage;
+                playerTwoUnit.HitPoints = playerTwoUnit.HitPoints - playerOneUnit.AttackDamage;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.AttackDamage) + " Schaden,"
-                    + Environment.NewLine + kaempfer2.Name + " hat noch " + Convert.ToString(kaempfer2.HitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(playerOneUnit.AttackDamage) + " Schaden,"
+                    + Environment.NewLine + playerTwoUnit.Name + " hat noch " + Convert.ToString(playerTwoUnit.HitPoints) + " HP";
             }
             else
             {
-                kaempfer2.HitPoints = kaempfer2.HitPoints - kaempfer1.AttackDamage + remainingArmor2;
+                playerTwoUnit.HitPoints = playerTwoUnit.HitPoints - playerOneUnit.AttackDamage + remainingArmor2;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(kaempfer1.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
-                    " abwehren" + Environment.NewLine + kaempfer2.Name + " hat noch " + Convert.ToString(kaempfer2.HitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(playerOneUnit.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
+                    " abwehren" + Environment.NewLine + playerTwoUnit.Name + " hat noch " + Convert.ToString(playerTwoUnit.HitPoints) + " HP";
             }
             return false;
         }
@@ -146,14 +153,14 @@ namespace Risiko_Rechner
             //würfel ergebnis
             Textausgabe.Text += Environment.NewLine + "Verteidiger führt Attacke aus:";
 
-            int remainingArmor1 = kaempfer1.Armor - kaempfer2.AntiArmor;
+            int remainingArmor1 = playerOneUnit.Armor - playerTwoUnit.AntiArmor;
             //Armortest report
             Textausgabe.Text += Environment.NewLine + "Rüstungswert des Angreifers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor1);
 
             if (remainingArmor1 < 0)
             { remainingArmor1 = 0; }
 
-            if (remainingArmor1 - kaempfer2.AttackDamage >= 0)
+            if (remainingArmor1 - playerTwoUnit.AttackDamage >= 0)
             {
                 // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
                 Textausgabe.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
@@ -162,17 +169,17 @@ namespace Risiko_Rechner
 
             if (remainingArmor1 == 0)
             {
-                kaempfer1.HitPoints = kaempfer1.HitPoints - kaempfer2.AttackDamage;
+                playerOneUnit.HitPoints = playerOneUnit.HitPoints - playerTwoUnit.AttackDamage;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.AttackDamage) + " Schaden,"
-                    + Environment.NewLine + kaempfer1.Name + " hat noch " + Convert.ToString(kaempfer1.HitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(playerTwoUnit.AttackDamage) + " Schaden,"
+                    + Environment.NewLine + playerOneUnit.Name + " hat noch " + Convert.ToString(playerOneUnit.HitPoints) + " HP";
             }
             else
             {
-                kaempfer1.HitPoints = kaempfer1.HitPoints - kaempfer2.AttackDamage + remainingArmor1;
+                playerOneUnit.HitPoints = playerOneUnit.HitPoints - playerTwoUnit.AttackDamage + remainingArmor1;
                 //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(kaempfer2.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
-                    " abwehren" + Environment.NewLine + kaempfer1.Name + " hat noch " + Convert.ToString(kaempfer1.HitPoints) + " HP";
+                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(playerTwoUnit.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
+                    " abwehren" + Environment.NewLine + playerOneUnit.Name + " hat noch " + Convert.ToString(playerOneUnit.HitPoints) + " HP";
             }
             return false;
         }
@@ -181,7 +188,7 @@ namespace Risiko_Rechner
             var withdrawal = false;
             if (spieler11 > spieler21)
             {
-                withdrawal= Angreifer();
+                withdrawal = Angreifer();
             }
             else
             {
@@ -189,8 +196,8 @@ namespace Risiko_Rechner
             }
             if (!withdrawal)
             {
-                Killcheck(kaempfer1.HitPoints, kaempfer2.HitPoints);
-                Victorycheck(anz1, anz2);
+                Killcheck(playerOneUnit.HitPoints, playerTwoUnit.HitPoints);
+                Victorycheck(playerOneUnitsAlive, playerTwoUnitsAlive);
             }
             else
             {
@@ -222,30 +229,30 @@ namespace Risiko_Rechner
             comboBox2.Text = "";
             numericUpDown1.Value = 0;
             numericUpDown2.Value = 0;
-            Runde = 0;
+            Round = 0;
 
         }
         /// <summary>
         /// Auch hier bitte die namen ausschreiben, ich denke ich weiß was das heißen soll aber is mega unübersichtlich 
         /// </summary>
-        private void Killcheck(int k1hp, int k2hp)
+        private void Killcheck(int playerOneUnitHitpoints, int playerTwoUnitHitpoints)
         {
-            if (k1hp <= 0)
+            if (playerOneUnitHitpoints <= 0)
             {
-                anz1--;
-                kaempfer1 = (Unit)bauplan1.Clone();
+                playerOneUnitsAlive--;
+                playerOneUnit = (Unit)bauplan1.Clone();
                 //Kill anouncment
                 Textausgabe.Text += Environment.NewLine + "Angreifer verliert eine Einheit, die nächste rutscht aber schon nach!" +
-                    Environment.NewLine + "Angreifer hat noch " + Convert.ToString(anz1) + " Einheiten übrig.";
+                    Environment.NewLine + "Angreifer hat noch " + Convert.ToString(playerOneUnitsAlive) + " Einheiten übrig.";
             }
 
-            if (k2hp <= 0)
+            if (playerTwoUnitHitpoints <= 0)
             {
-                anz2--;
-                kaempfer2 = (Unit)bauplan2.Clone();
+                playerTwoUnitsAlive--;
+                playerTwoUnit = (Unit)bauplan2.Clone();
                 //Kill anouncment
                 Textausgabe.Text += Environment.NewLine + "Verteidiger verliert eine Einheit, die nächste rutscht aber schon nach!" +
-                    Environment.NewLine + "Verteidiger hat noch " + Convert.ToString(anz2) + " Einheiten übrig.";
+                    Environment.NewLine + "Verteidiger hat noch " + Convert.ToString(playerTwoUnitsAlive) + " Einheiten übrig.";
             }
 
 
