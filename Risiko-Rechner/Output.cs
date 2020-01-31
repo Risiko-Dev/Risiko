@@ -8,7 +8,8 @@ namespace Risiko_Rechner
 {
     public class Output
     {
-        public bool MissingUnitNames(string name1, string name2, System.Windows.Forms.TextBox outputTextbox)
+        public System.Windows.Forms.TextBox outputTextbox;
+        public bool MissingUnitNames(string name1, string name2)
         {
             if (name1 == "")
             {
@@ -22,7 +23,7 @@ namespace Risiko_Rechner
             }
             return false;
         }
-        public bool MissingUnitNumbers(int unitNumerAttacker, int unitNumberDefender, System.Windows.Forms.TextBox outputTextbox)
+        public bool MissingUnitNumbers(int unitNumerAttacker, int unitNumberDefender)
         {
 
             if (unitNumerAttacker == 0)
@@ -37,23 +38,59 @@ namespace Risiko_Rechner
             }
             return false;
         }
-        public void StartupText(System.Windows.Forms.TextBox outputTextbox, int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
+        public void StartupText(int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
         {
-            MakeSpace(outputTextbox, 3);
+            MakeSpace(3);
+            if (playerOneDiceTwo > 0 && playerTwoDiceTwo > 1)
+            {
+                Normal(playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
+            }
+            else
+            {
+                ShortendArmee(playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
+            }
+        }
+
+        private  void ShortendArmee( int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
+        {
+            outputTextbox.Text += $"Kampfrunde: {Round}";
+            //Würfel:
+            if (playerOneDiceTwo < 0)
+            {
+                outputTextbox.Text += $"{Environment.NewLine}Angreifer würfelt: {playerOneDiceOne}.";
+            }
+            else
+            {
+                outputTextbox.Text += $"{Environment.NewLine}Angreifer würfelt: {playerOneDiceOne}, {playerOneDiceOne} und {playerOneDiceTwo}";
+            }
+            //Würfel
+            if (playerTwoDiceTwo < 0)
+            {
+                outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne}";
+            }
+            else
+            {
+                outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
+            }
+        }
+
+        private void Normal(int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
+        {
             outputTextbox.Text += $"Kampfrunde: {Round}";
             //Würfel:
             outputTextbox.Text += $"{Environment.NewLine}Angreifer würfelt: {playerOneDiceOne}, {playerOneDiceOne} und {playerOneDiceTwo}";
             //Würfel
             outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
         }
-        public void HighestDice(System.Windows.Forms.TextBox outputTextbox, int playerOneFirstDice, int playerTwoFirstDice)
+
+        public void HighestDice(int playerOneFirstDice, int playerTwoFirstDice)
         {
             // würfel ausgabe
-            MakeSpace(outputTextbox, 2);
+            MakeSpace(2);
             outputTextbox.Text += $"höchster Angreifer Würfel: {playerOneFirstDice}{Environment.NewLine}höchster Verteidiger Würfel: {playerTwoFirstDice}";
         }
 
-        private static void MakeSpace(System.Windows.Forms.TextBox outputTextbox, int blankLineAmount)
+        private void MakeSpace( int blankLineAmount)
         {
             for (int i = 0; i < blankLineAmount; i++)
             {
@@ -61,11 +98,29 @@ namespace Risiko_Rechner
             }
         }
 
-        public void SecondHighestDice(System.Windows.Forms.TextBox outputTextbox, int playerOneSecondDice, int playerTwoSecondDice)
+        public void SecondHighestDice( int playerOneSecondDice, int playerTwoSecondDice)
         {
             // würfel ausgabe
-            MakeSpace(outputTextbox, 2);
+            MakeSpace(2);
             outputTextbox.Text += $"zweithöchster Angreifer Würfel: {playerOneSecondDice}.{Environment.NewLine}zweithöchsterhöchster Verteidiger Würfel:{playerTwoSecondDice}";
+        }
+        public bool UnitDeath(int UnitsAlive, string player)
+        {
+            MakeSpace( 2);
+            if (UnitsAlive > 0)
+            {
+                outputTextbox.Text += $"Der {player} verliert eine Einheit, die nächste rutscht aber schon nach!{Environment.NewLine}{player} hat noch{UnitsAlive} Einheiten übrig.";
+                return false;
+            }
+            else
+            {
+                outputTextbox.Text += $"Der {player} wurde besiegt! Alle Einheiten sind Tod.";
+                return true;
+            }
+        }
+        public void Victory(string victor)
+        {
+
         }
     }
 }

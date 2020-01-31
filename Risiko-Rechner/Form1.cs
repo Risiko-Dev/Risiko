@@ -24,6 +24,7 @@ namespace Risiko_Rechner
         public Form1()
         {
             InitializeComponent();
+            outputter.outputTextbox = Textausgabe;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,7 +37,7 @@ namespace Risiko_Rechner
             playerOneUnitsAlive = (int)numericUpDown1.Value;
             playerTwoUnitsAlive = (int)numericUpDown2.Value;
 
-            var readyForFight = !(outputter.MissingUnitNames(name1, name2, Textausgabe) || outputter.MissingUnitNumbers(playerOneUnitsAlive, playerTwoUnitsAlive, Textausgabe));
+            var readyForFight = !(outputter.MissingUnitNames(name1, name2) || outputter.MissingUnitNumbers(playerOneUnitsAlive, playerTwoUnitsAlive));
             if (readyForFight)
             {
                 Setup(name1, name2);
@@ -67,14 +68,14 @@ namespace Risiko_Rechner
                 Round++;
                 int playerOneDiceOne, playerOneDiceTwo, playerTwoDiceOne, playerTwoDiceTwo;
                 RollDices(out playerOneDiceOne, out playerOneDiceTwo, out playerTwoDiceOne, out playerTwoDiceTwo);
-                outputter.StartupText(Textausgabe, playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
-                outputter.HighestDice(Textausgabe, playerOneDiceOne, playerOneDiceTwo);
+                outputter.StartupText( playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
+                outputter.HighestDice( playerOneDiceOne, playerOneDiceTwo);
 
                 WuerfelErgebnis(playerOneDiceOne, playerTwoDiceOne); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
-                if (!victory)
+                if (!victory && playerOneDiceTwo > 0 && playerTwoDiceTwo > 0)
                 {
-                    outputter.SecondHighestDice(Textausgabe, playerTwoDiceOne, playerTwoDiceTwo);
+                    outputter.SecondHighestDice(playerTwoDiceOne, playerTwoDiceTwo);
                     WuerfelErgebnis(playerOneDiceTwo, playerTwoDiceTwo);
                 }
 
@@ -107,9 +108,28 @@ namespace Risiko_Rechner
             PlayerTwoDices.Sort();
 
             playerOneDiceOne = playerOneDices[2];
-            playerOneDiceTwo = playerOneDices[1];
             playerTwoDiceOne = PlayerTwoDices[1];
-            playerTwoDiceTwo = PlayerTwoDices[0];
+            CheckIfEnoughUnits(out playerOneDiceTwo, out playerTwoDiceTwo, playerOneDices, PlayerTwoDices);
+        }
+
+        private void CheckIfEnoughUnits(out int playerOneDiceTwo, out int playerTwoDiceTwo, List<int> playerOneDices, List<int> PlayerTwoDices)
+        {
+            if (playerOneUnitsAlive > 1)
+            {
+                playerOneDiceTwo = playerOneDices[1];
+            }
+            else
+            {
+                playerOneDiceTwo = -1;
+            }
+            if (playerTwoUnitsAlive > 1)
+            {
+                playerTwoDiceTwo = PlayerTwoDices[0];
+            }
+            else
+            {
+                playerTwoDiceTwo = -1;
+            }
         }
 
         private bool Angreifer()
@@ -196,19 +216,30 @@ namespace Risiko_Rechner
             }
             if (!withdrawal)
             {
-                Killcheck(playerOneUnit.HitPoints, playerTwoUnit.HitPoints);
-                Victorycheck(playerOneUnitsAlive, playerTwoUnitsAlive);
+                KillCheck(playerOneUnit.HitPoints, playerTwoUnit.HitPoints);
+                VictoryCheck();
             }
             else
             {
                 victory = true;
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void VictoryCheck()
+        {
+            if (playerOneUnitsAlive <= 0 )
+            {
+                outputter.Victory("Verteidiger");
+                victory = true;
+            }
+            if (playerTwoUnitsAlive <= 0)
+            {
+                outputter.Victory("Angreifer");
+                victory = true;
+            }
+        }
+        private void LoadUnits(object sender, EventArgs e)
         {
             // csv einlesen
-
             Unitserzeugen(@"..\..\Units.csv");
 
             foreach (Unit einheit in Units)
@@ -218,11 +249,8 @@ namespace Risiko_Rechner
             }
 
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
-
-
         }
-        //umbenennen !
-        private void button2_Click(object sender, EventArgs e)
+        private void ResetProgram(object sender, EventArgs e)
         {
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
             comboBox1.Text = "";
@@ -232,18 +260,14 @@ namespace Risiko_Rechner
             Round = 0;
 
         }
-        /// <summary>
-        /// Auch hier bitte die namen ausschreiben, ich denke ich weiß was das heißen soll aber is mega unübersichtlich 
-        /// </summary>
-        private void Killcheck(int playerOneUnitHitpoints, int playerTwoUnitHitpoints)
+        private void KillCheck(int playerOneUnitHitpoints, int playerTwoUnitHitpoints)
         {
             if (playerOneUnitHitpoints <= 0)
             {
                 playerOneUnitsAlive--;
                 playerOneUnit = (Unit)bauplan1.Clone();
                 //Kill anouncment
-                Textausgabe.Text += Environment.NewLine + "Angreifer verliert eine Einheit, die nächste rutscht aber schon nach!" +
-                    Environment.NewLine + "Angreifer hat noch " + Convert.ToString(playerOneUnitsAlive) + " Einheiten übrig.";
+                victory = outputter.UnitDeath(playerOneUnitsAlive, "Angreifer");
             }
 
             if (playerTwoUnitHitpoints <= 0)
@@ -251,30 +275,7 @@ namespace Risiko_Rechner
                 playerTwoUnitsAlive--;
                 playerTwoUnit = (Unit)bauplan2.Clone();
                 //Kill anouncment
-                Textausgabe.Text += Environment.NewLine + "Verteidiger verliert eine Einheit, die nächste rutscht aber schon nach!" +
-                    Environment.NewLine + "Verteidiger hat noch " + Convert.ToString(playerTwoUnitsAlive) + " Einheiten übrig.";
-            }
-
-
-        }
-        /// <summary>
-        /// Bitte hier auch was is z1 und z2 das is wenn man nur die methode sich anschaut absolut nicht ersichtlich !
-        /// </summary>
-        private void Victorycheck(int z1, int z2)
-        {
-            if (z1 <= 0)
-            {
-                //Winnner...
-                Textausgabe.Text += Environment.NewLine + "Der Angreifer hat alle Einheiten verloren!" +
-                    Environment.NewLine + "Der Verteidiger gewinnt und hält sein Feld";
-
-            }
-
-            if (z2 <= 0)
-            {
-                //Winnner...
-                Textausgabe.Text += Environment.NewLine + "Der Verteidiger hat alle Einheiten verloren!" +
-                    Environment.NewLine + "Der Angreifer gewinnt und erobert das Feld";
+                victory = outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger");
             }
         }
 
