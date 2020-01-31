@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Risiko_Rechner
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         List<Unit> Units = new List<Unit>();
         int Runde = 0, anz1 = 0, anz2 = 0;
@@ -19,7 +19,7 @@ namespace Risiko_Rechner
         Unit bauplan1 = null;
         Unit bauplan2 = null;
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
         }
