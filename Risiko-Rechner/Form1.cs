@@ -131,88 +131,16 @@ namespace Risiko_Rechner
                 playerTwoDiceTwo = -1;
             }
         }
-
-        private bool Angreifer()
-        {
-            //Würfel ergb.
-            Textausgabe.Text += Environment.NewLine + "Angreifer führt Attacke aus:";
-
-            int remainingArmor2 = playerTwoUnit.Armor - playerOneUnit.AntiArmor;
-            //Armortest report
-            Textausgabe.Text += Environment.NewLine + "Rüstungswert des Verteidigers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor2);
-
-            if (remainingArmor2 < 0)
-            { remainingArmor2 = 0; }
-
-            if (remainingArmor2 - playerOneUnit.AttackDamage >= 0)
-            {
-                // TEXT: ABBRUCH DES KAMPFES, 1 zieht sich zurück
-                Textausgabe.Text += Environment.NewLine + "Angreifer kann die Panzerung des Verteidigers nicht durchdringen, er muss sich zurückziehen";
-                return true;
-            }
-
-            if (remainingArmor2 == 0)
-            {
-                playerTwoUnit.HitPoints = playerTwoUnit.HitPoints - playerOneUnit.AttackDamage;
-                //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(playerOneUnit.AttackDamage) + " Schaden,"
-                    + Environment.NewLine + playerTwoUnit.Name + " hat noch " + Convert.ToString(playerTwoUnit.HitPoints) + " HP";
-            }
-            else
-            {
-                playerTwoUnit.HitPoints = playerTwoUnit.HitPoints - playerOneUnit.AttackDamage + remainingArmor2;
-                //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Verteidiger erhält " + Convert.ToString(playerOneUnit.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor2) +
-                    " abwehren" + Environment.NewLine + playerTwoUnit.Name + " hat noch " + Convert.ToString(playerTwoUnit.HitPoints) + " HP";
-            }
-            return false;
-        }
-
-        private bool Verteidiger()
-        {
-            //würfel ergebnis
-            Textausgabe.Text += Environment.NewLine + "Verteidiger führt Attacke aus:";
-
-            int remainingArmor1 = playerOneUnit.Armor - playerTwoUnit.AntiArmor;
-            //Armortest report
-            Textausgabe.Text += Environment.NewLine + "Rüstungswert des Angreifers nach angriff mit AP-Waffen: " + Convert.ToString(remainingArmor1);
-
-            if (remainingArmor1 < 0)
-            { remainingArmor1 = 0; }
-
-            if (remainingArmor1 - playerTwoUnit.AttackDamage >= 0)
-            {
-                // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
-                Textausgabe.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
-                return true;
-            }
-
-            if (remainingArmor1 == 0)
-            {
-                playerOneUnit.HitPoints = playerOneUnit.HitPoints - playerTwoUnit.AttackDamage;
-                //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(playerTwoUnit.AttackDamage) + " Schaden,"
-                    + Environment.NewLine + playerOneUnit.Name + " hat noch " + Convert.ToString(playerOneUnit.HitPoints) + " HP";
-            }
-            else
-            {
-                playerOneUnit.HitPoints = playerOneUnit.HitPoints - playerTwoUnit.AttackDamage + remainingArmor1;
-                //Dmg and HP-loss
-                Textausgabe.Text += Environment.NewLine + "Angreifer erhält " + Convert.ToString(playerTwoUnit.AttackDamage) + " Schaden, kann dabei " + Convert.ToString(remainingArmor1) +
-                    " abwehren" + Environment.NewLine + playerOneUnit.Name + " hat noch " + Convert.ToString(playerOneUnit.HitPoints) + " HP";
-            }
-            return false;
-        }
         private void WuerfelErgebnis(int spieler11, int spieler21)
         {
             var withdrawal = false;
             if (spieler11 > spieler21)
             {
-                withdrawal = Angreifer();
+                withdrawal = outputter.Fight("Angreifer", "Verteidiger", playerOneUnit, playerTwoUnit, out playerTwoUnit);
             }
             else
             {
-                withdrawal = Verteidiger();
+                withdrawal = outputter.Fight("Verteidiger", "Angreifer", playerTwoUnit, playerOneUnit, out playerOneUnit);
             }
             if (!withdrawal)
             {

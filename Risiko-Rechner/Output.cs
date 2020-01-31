@@ -120,7 +120,52 @@ namespace Risiko_Rechner
         }
         public void Victory(string victor)
         {
+            var task = string.Empty;
+            if (victor == "Angreifer")
+            {
+                task = "erobrern";
+            }
+            else
+            {
+                task = "verteidigen";
+            }
 
+            outputTextbox.Text += $"Der {victor} konnte das Feld {task}!";
+        }
+        public bool Fight(string Attacker, string Defender, Unit attackerUnit, Unit defenderUnit, out Unit defenderUnitResult)
+        {
+            //würfel ergebnis
+            outputTextbox.Text += Environment.NewLine + $"{Attacker} führt Attacke aus:";
+
+            int remainingArmor = defenderUnit.Armor - attackerUnit.AntiArmor;
+            //Armortest report
+            outputTextbox.Text += Environment.NewLine + $"Rüstungswert des {Defender} nach angriff mit AP-Waffen: {remainingArmor}";
+
+            if (remainingArmor < 0)
+            { remainingArmor = 0; }
+
+            if (remainingArmor - attackerUnit.AttackDamage >= 0)
+            {
+                // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
+                outputTextbox.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
+                defenderUnitResult = defenderUnit;
+                return true ;
+            }
+
+            if (remainingArmor == 0)
+            {
+                defenderUnit.HitPoints -= attackerUnit.AttackDamage;
+                //Dmg and HP-loss
+                outputTextbox.Text += Environment.NewLine + $"{Defender} erhält {attackerUnit.AttackDamage} Schaden,{Environment.NewLine}{defenderUnit.Name} hat noch {defenderUnit.HitPoints} HP";
+            }
+            else
+            {
+                defenderUnit.HitPoints -= attackerUnit.AttackDamage + remainingArmor;
+                //Dmg and HP-loss
+                outputTextbox.Text += Environment.NewLine + $"{Defender} erhält {attackerUnit.AttackDamage} Schaden, kann dabei {remainingArmor} abwehren{Environment.NewLine}{defenderUnit.Name} hat noch {defenderUnit.HitPoints} HP";
+            }
+            defenderUnitResult = defenderUnit;
+            return false;
         }
     }
 }
