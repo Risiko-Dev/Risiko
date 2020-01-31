@@ -112,12 +112,12 @@ namespace Risiko_Rechner
 
                 // würfel ausgabe
                 Textausgabe.Text += Environment.NewLine + Environment.NewLine + "höchster Angreifer Würfel: " + Convert.ToString(S1W1) +
-                    Environment.NewLine + "höchster Verteidiger Würfel: " + Convert.ToString(S1W2);
+                    Environment.NewLine + "höchster Verteidiger Würfel: " + Convert.ToString(S2W1);
 
                 WuerfelErgebnis(S1W1, S2W1); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
                 // würfel ausgabe
-                Textausgabe.Text += Environment.NewLine + Environment.NewLine + "zweithöchster Angreifer Würfel: " + Convert.ToString(S2W1) +
+                Textausgabe.Text += Environment.NewLine + Environment.NewLine + "zweithöchster Angreifer Würfel: " + Convert.ToString(S1W2) +
                     Environment.NewLine + "zweithöchsterhöchster Verteidiger Würfel: " + Convert.ToString(S2W2);
 
                 WuerfelErgebnis(S1W2, S2W2);
@@ -273,7 +273,7 @@ namespace Risiko_Rechner
             {
                 //Winnner...
                 Textausgabe.Text += Environment.NewLine + "Der Angreifer hat alle Einheiten verloren!" +
-                    Environment.NewLine + "Der Verteidiger gewinnt und hält sein Feld";
+                    Environment.NewLine + "Der Verteidiger gewinnt und hält sein Feld, er hat noch: " + Convert.ToString(z2) + " Einheiten";
 
             }
 
@@ -281,7 +281,7 @@ namespace Risiko_Rechner
             {
                 //Winnner...
                 Textausgabe.Text += Environment.NewLine + "Der Verteidiger hat alle Einheiten verloren!" +
-                    Environment.NewLine + "Der Angreifer gewinnt und erobert das Feld";
+                    Environment.NewLine + "Der Angreifer gewinnt und erobert das Feld, er hat noch: " + Convert.ToString(z1) + " Einheiten";
             }
         }
 

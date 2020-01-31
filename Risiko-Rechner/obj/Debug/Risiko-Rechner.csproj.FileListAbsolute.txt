@@ -16,3 +16,12 @@ C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko_Rechner.Properties.
 C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.csproj.GenerateResource.cache
 C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.exe
 C:\Users\doma\Desktop\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.pdb
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\bin\Debug\Risiko-Rechner.exe.config
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.exe
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.pdb
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\bin\Debug\Risiko-Rechner.exe
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\bin\Debug\Risiko-Rechner.pdb
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.csprojResolveAssemblyReference.cache
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\obj\Debug\Risiko_Rechner.Form1.resources
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\obj\Debug\Risiko_Rechner.Properties.Resources.resources
+C:\Users\Konstantin\Documents\GitHub\Risiko\Risiko-Rechner\obj\Debug\Risiko-Rechner.csproj.GenerateResource.Cache
