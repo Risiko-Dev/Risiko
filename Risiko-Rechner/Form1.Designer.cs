@@ -150,7 +150,7 @@
             this.Resetknopf.TabIndex = 8;
             this.Resetknopf.Text = "Reset";
             this.Resetknopf.UseVisualStyleBackColor = true;
-            this.Resetknopf.Click += new System.EventHandler(this.button2_Click);
+            this.Resetknopf.Click += new System.EventHandler(this.ResetProgram);
             // 
             // label3
             // 
@@ -380,7 +380,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.LoadUnits);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
