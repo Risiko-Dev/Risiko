@@ -9,6 +9,11 @@ namespace Risiko_Rechner
     public class Output
     {
         public System.Windows.Forms.TextBox outputTextbox;
+
+        public void Missing(List<System.Windows.Forms.ComboBox> comboBoxes, List<System.Windows.Forms.NumericUpDown> numerics)
+        {
+
+        }
         public bool MissingUnitNames(string name1, string name2)
         {
             if (name1 == "")

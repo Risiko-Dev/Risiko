@@ -31,19 +31,57 @@ namespace Risiko_Rechner
         {
             victory = false;
 
-            string name1 = comboBox1.Text;
-            string name2 = comboBox2.Text;
+            string name1 = UnitBox1.Text;
+            string name2 = UnitBox6.Text;
 
             playerOneUnitsAlive = (int)numericUpDown1.Value;
             playerTwoUnitsAlive = (int)numericUpDown2.Value;
 
-            var readyForFight = !(outputter.MissingUnitNames(name1, name2) || outputter.MissingUnitNumbers(playerOneUnitsAlive, playerTwoUnitsAlive));
-            if (readyForFight)
+            var UnitMissing = UnitsMissing();
+
+
+            if (!UnitMissing)
             {
                 Setup(name1, name2);
             }
 
 
+        }
+
+        private bool UnitsMissing()
+        {
+            var comboBoxes = this.Controls
+            .OfType<ComboBox>()
+            .Where(x => x.Name.StartsWith("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
+
+            var Unitnumbers = this.Controls
+            .OfType<NumericUpDown>()
+            .Where(x => x.Name.StartsWith("numericUpDown")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+
+            var count = 0;
+            var goFight = true;
+            foreach (var item in comboBoxes) //check ob in einem Feld ne unit ausgewählt is und anzahl größer 0
+            {
+                if (item.SelectedItem == null)
+                {
+                    continue;
+                }
+                count++;
+                if ((item.SelectedItem.ToString() != null || item.SelectedItem.ToString() != String.Empty) && Unitnumbers.ToList()[count].Value != 0)
+                {
+                    goFight = false;
+                }
+
+            }
+            if (goFight)
+            {
+                return false;
+            }
+            else
+            {
+                outputter.Missing(comboBoxes.ToList(), Unitnumbers.ToList());
+                return true;
+            }
         }
 
         private void Setup(string name1, string name2)
@@ -62,14 +100,14 @@ namespace Risiko_Rechner
 
         private void Fight()
         {
-           do
+            do
             {
 
                 Round++;
                 int playerOneDiceOne, playerOneDiceTwo, playerTwoDiceOne, playerTwoDiceTwo;
                 RollDices(out playerOneDiceOne, out playerOneDiceTwo, out playerTwoDiceOne, out playerTwoDiceTwo);
-                outputter.StartupText( playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
-                outputter.HighestDice( playerOneDiceOne, playerOneDiceTwo);
+                outputter.StartupText(playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
+                outputter.HighestDice(playerOneDiceOne, playerOneDiceTwo);
 
                 WuerfelErgebnis(playerOneDiceOne, playerTwoDiceOne); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
@@ -154,7 +192,7 @@ namespace Risiko_Rechner
         }
         private void VictoryCheck()
         {
-            if (playerOneUnitsAlive <= 0 )
+            if (playerOneUnitsAlive <= 0)
             {
                 outputter.Victory("Verteidiger");
                 victory = true;
@@ -170,21 +208,129 @@ namespace Risiko_Rechner
             // csv einlesen
             Unitserzeugen(@"..\..\Units.csv");
 
+
             foreach (Unit einheit in Units)
             {
-                comboBox1.Items.Add(einheit.Name);
-                comboBox2.Items.Add(einheit.Name);
+                UnitBox1.Items.Add(einheit.Name);
+                UnitBox6.Items.Add(einheit.Name);
             }
-
+            SetupGUI();
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
         }
+        private void SetupGUI()
+        {
+            var comboBoxes = this.Controls
+        .OfType<ComboBox>()
+        .Where(x => x.Name.StartsWith("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
+
+            var Unitnumbers = this.Controls
+            .OfType<NumericUpDown>()
+            .Where(x => x.Name.StartsWith("numericUpDown")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+
+            for (int i = 0; i < comboBoxes.Count(); i++)
+            {
+                if (comboBoxes.ToList()[i].Name.Contains("1") || comboBoxes.ToList()[i].Name.Contains("6"))
+                {
+                    if (comboBoxes.ToList()[i].Name.Contains("10"))
+                    {
+                        comboBoxes.ToList()[i].Enabled = false;
+                        Unitnumbers.ToList()[i].Enabled = false;
+                        continue;
+                    }
+                    comboBoxes.ToList()[i].Enabled = true;
+                    Unitnumbers.ToList()[i].Enabled = true;
+                    continue;
+                }
+                comboBoxes.ToList()[i].Enabled = false;
+                Unitnumbers.ToList()[i].Enabled = false;
+            }
+        }
+
+        private void UnitBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox2.Enabled = true;
+            numericUpDown2.Enabled = true;
+            removeEntry(UnitBox1, UnitBox2, UnitBox1.Text);
+        }
+
+        private void UnitBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox3.Enabled = true;
+            numericUpDown3.Enabled = true;
+            removeEntry(UnitBox2,UnitBox3, UnitBox2.Text);
+        }
+
+        private void UnitBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox4.Enabled = true;
+            numericUpDown4.Enabled = true;
+            removeEntry(UnitBox3,UnitBox4, UnitBox3.Text);
+        }
+
+        private void UnitBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox5.Enabled = true;
+            numericUpDown5.Enabled = true;
+            removeEntry(UnitBox4,UnitBox5, UnitBox4.Text);
+        }
+
+        private void UnitBox6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox7.Enabled = true;
+            numericUpDown7.Enabled = true;
+            removeEntry(UnitBox6, UnitBox7, UnitBox6.Text);
+        }
+
+        private void UnitBox7_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox8.Enabled = true;
+            numericUpDown8.Enabled = true;
+            removeEntry(UnitBox7, UnitBox8, UnitBox7.Text);
+        }
+
+        private void UnitBox8_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox9.Enabled = true;
+            numericUpDown9.Enabled = true;
+            removeEntry(UnitBox8, UnitBox9, UnitBox8.Text);
+        }
+
+        private void UnitBox9_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UnitBox10.Enabled = true;
+            numericUpDown10.Enabled = true;
+            removeEntry(UnitBox9, UnitBox10, UnitBox9.Text);
+        }
+        private void removeEntry(ComboBox comboBoxOld, ComboBox comboBoxNew, string name)
+        {
+            var count = comboBoxNew.Items.Count;
+            for (int i = 0; i < count ; i++)
+            {
+                comboBoxNew.Items.RemoveAt(0);
+            }
+            foreach (var item in comboBoxOld.Items)
+            {
+                if (item.ToString() == name)
+                {
+                    continue;
+                }
+                comboBoxNew.Items.Add(item);
+            }
+        }
+
         private void ResetProgram(object sender, EventArgs e)
         {
-            Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
-            comboBox1.Text = "";
-            comboBox2.Text = "";
-            numericUpDown1.Value = 0;
-            numericUpDown2.Value = 0;
+
+            var Unitnumbers = this.Controls
+            .OfType<NumericUpDown>()
+            .Where(x => x.Name.StartsWith("numericUpDown")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+
+            foreach (var item in Unitnumbers)
+            {
+                item.Value = 0;
+            }
+            UnitBox1.Text = string.Empty;
+            SetupGUI();
             Round = 0;
 
         }

@@ -30,8 +30,8 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.Textausgabe = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.UnitBox1 = new System.Windows.Forms.ComboBox();
+            this.UnitBox6 = new System.Windows.Forms.ComboBox();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,20 +44,20 @@
             this.Textausgabe2 = new System.Windows.Forms.TextBox();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.UnitBox7 = new System.Windows.Forms.ComboBox();
+            this.UnitBox2 = new System.Windows.Forms.ComboBox();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.UnitBox8 = new System.Windows.Forms.ComboBox();
+            this.UnitBox3 = new System.Windows.Forms.ComboBox();
             this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.UnitBox9 = new System.Windows.Forms.ComboBox();
+            this.UnitBox4 = new System.Windows.Forms.ComboBox();
             this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
-            this.comboBox10 = new System.Windows.Forms.ComboBox();
+            this.UnitBox10 = new System.Windows.Forms.ComboBox();
+            this.UnitBox5 = new System.Windows.Forms.ComboBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -94,21 +94,23 @@
             this.Textausgabe.Size = new System.Drawing.Size(488, 598);
             this.Textausgabe.TabIndex = 1;
             // 
-            // comboBox1
+            // UnitBox1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(79, 118);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
+            this.UnitBox1.FormattingEnabled = true;
+            this.UnitBox1.Location = new System.Drawing.Point(79, 118);
+            this.UnitBox1.Name = "UnitBox1";
+            this.UnitBox1.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox1.TabIndex = 2;
+            this.UnitBox1.SelectedIndexChanged += new System.EventHandler(this.UnitBox1_SelectedIndexChanged);
             // 
-            // comboBox2
+            // UnitBox6
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(294, 117);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 3;
+            this.UnitBox6.FormattingEnabled = true;
+            this.UnitBox6.Location = new System.Drawing.Point(294, 117);
+            this.UnitBox6.Name = "UnitBox6";
+            this.UnitBox6.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox6.TabIndex = 3;
+            this.UnitBox6.SelectedIndexChanged += new System.EventHandler(this.UnitBox6_SelectedIndexChanged);
             // 
             // numericUpDown1
             // 
@@ -209,21 +211,23 @@
             this.numericUpDown5.Size = new System.Drawing.Size(60, 20);
             this.numericUpDown5.TabIndex = 15;
             // 
-            // comboBox3
+            // UnitBox7
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(294, 144);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 14;
+            this.UnitBox7.FormattingEnabled = true;
+            this.UnitBox7.Location = new System.Drawing.Point(294, 144);
+            this.UnitBox7.Name = "UnitBox7";
+            this.UnitBox7.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox7.TabIndex = 14;
+            this.UnitBox7.SelectedIndexChanged += new System.EventHandler(this.UnitBox7_SelectedIndexChanged);
             // 
-            // comboBox4
+            // UnitBox2
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(79, 145);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 13;
+            this.UnitBox2.FormattingEnabled = true;
+            this.UnitBox2.Location = new System.Drawing.Point(79, 145);
+            this.UnitBox2.Name = "UnitBox2";
+            this.UnitBox2.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox2.TabIndex = 13;
+            this.UnitBox2.SelectedIndexChanged += new System.EventHandler(this.UnitBox2_SelectedIndexChanged);
             // 
             // numericUpDown6
             // 
@@ -239,21 +243,23 @@
             this.numericUpDown7.Size = new System.Drawing.Size(60, 20);
             this.numericUpDown7.TabIndex = 19;
             // 
-            // comboBox5
+            // UnitBox8
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(294, 171);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 21);
-            this.comboBox5.TabIndex = 18;
+            this.UnitBox8.FormattingEnabled = true;
+            this.UnitBox8.Location = new System.Drawing.Point(294, 171);
+            this.UnitBox8.Name = "UnitBox8";
+            this.UnitBox8.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox8.TabIndex = 18;
+            this.UnitBox8.SelectedIndexChanged += new System.EventHandler(this.UnitBox8_SelectedIndexChanged);
             // 
-            // comboBox6
+            // UnitBox3
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(79, 172);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 21);
-            this.comboBox6.TabIndex = 17;
+            this.UnitBox3.FormattingEnabled = true;
+            this.UnitBox3.Location = new System.Drawing.Point(79, 172);
+            this.UnitBox3.Name = "UnitBox3";
+            this.UnitBox3.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox3.TabIndex = 17;
+            this.UnitBox3.SelectedIndexChanged += new System.EventHandler(this.UnitBox3_SelectedIndexChanged);
             // 
             // numericUpDown8
             // 
@@ -269,21 +275,23 @@
             this.numericUpDown9.Size = new System.Drawing.Size(60, 20);
             this.numericUpDown9.TabIndex = 23;
             // 
-            // comboBox7
+            // UnitBox9
             // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Location = new System.Drawing.Point(294, 198);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(121, 21);
-            this.comboBox7.TabIndex = 22;
+            this.UnitBox9.FormattingEnabled = true;
+            this.UnitBox9.Location = new System.Drawing.Point(294, 198);
+            this.UnitBox9.Name = "UnitBox9";
+            this.UnitBox9.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox9.TabIndex = 22;
+            this.UnitBox9.SelectedIndexChanged += new System.EventHandler(this.UnitBox9_SelectedIndexChanged);
             // 
-            // comboBox8
+            // UnitBox4
             // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Location = new System.Drawing.Point(79, 199);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(121, 21);
-            this.comboBox8.TabIndex = 21;
+            this.UnitBox4.FormattingEnabled = true;
+            this.UnitBox4.Location = new System.Drawing.Point(79, 199);
+            this.UnitBox4.Name = "UnitBox4";
+            this.UnitBox4.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox4.TabIndex = 21;
+            this.UnitBox4.SelectedIndexChanged += new System.EventHandler(this.UnitBox4_SelectedIndexChanged);
             // 
             // numericUpDown10
             // 
@@ -299,21 +307,21 @@
             this.numericUpDown11.Size = new System.Drawing.Size(60, 20);
             this.numericUpDown11.TabIndex = 27;
             // 
-            // comboBox9
+            // UnitBox10
             // 
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Location = new System.Drawing.Point(294, 225);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(121, 21);
-            this.comboBox9.TabIndex = 26;
+            this.UnitBox10.FormattingEnabled = true;
+            this.UnitBox10.Location = new System.Drawing.Point(294, 225);
+            this.UnitBox10.Name = "UnitBox10";
+            this.UnitBox10.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox10.TabIndex = 26;
             // 
-            // comboBox10
+            // UnitBox5
             // 
-            this.comboBox10.FormattingEnabled = true;
-            this.comboBox10.Location = new System.Drawing.Point(79, 226);
-            this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(121, 21);
-            this.comboBox10.TabIndex = 25;
+            this.UnitBox5.FormattingEnabled = true;
+            this.UnitBox5.Location = new System.Drawing.Point(79, 226);
+            this.UnitBox5.Name = "UnitBox5";
+            this.UnitBox5.Size = new System.Drawing.Size(121, 21);
+            this.UnitBox5.TabIndex = 25;
             // 
             // checkedListBox1
             // 
@@ -340,7 +348,7 @@
             this.label4.TabIndex = 31;
             this.label4.Text = "gegnerische Einheitenstärke";
             // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -350,20 +358,20 @@
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.numericUpDown10);
             this.Controls.Add(this.numericUpDown11);
-            this.Controls.Add(this.comboBox9);
-            this.Controls.Add(this.comboBox10);
+            this.Controls.Add(this.UnitBox10);
+            this.Controls.Add(this.UnitBox5);
             this.Controls.Add(this.numericUpDown8);
             this.Controls.Add(this.numericUpDown9);
-            this.Controls.Add(this.comboBox7);
-            this.Controls.Add(this.comboBox8);
+            this.Controls.Add(this.UnitBox9);
+            this.Controls.Add(this.UnitBox4);
             this.Controls.Add(this.numericUpDown6);
             this.Controls.Add(this.numericUpDown7);
-            this.Controls.Add(this.comboBox5);
-            this.Controls.Add(this.comboBox6);
+            this.Controls.Add(this.UnitBox8);
+            this.Controls.Add(this.UnitBox3);
             this.Controls.Add(this.numericUpDown4);
             this.Controls.Add(this.numericUpDown5);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.UnitBox7);
+            this.Controls.Add(this.UnitBox2);
             this.Controls.Add(this.Textausgabe2);
             this.Controls.Add(this.numericUpDown3);
             this.Controls.Add(this.AllgFaehigkeiten);
@@ -374,11 +382,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.UnitBox6);
+            this.Controls.Add(this.UnitBox1);
             this.Controls.Add(this.Textausgabe);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.LoadUnits);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
@@ -401,8 +409,8 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox Textausgabe;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox UnitBox1;
+        private System.Windows.Forms.ComboBox UnitBox6;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label1;
@@ -415,20 +423,20 @@
         private System.Windows.Forms.TextBox Textausgabe2;
         private System.Windows.Forms.NumericUpDown numericUpDown4;
         private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox UnitBox7;
+        private System.Windows.Forms.ComboBox UnitBox2;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
         private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox UnitBox8;
+        private System.Windows.Forms.ComboBox UnitBox3;
         private System.Windows.Forms.NumericUpDown numericUpDown8;
         private System.Windows.Forms.NumericUpDown numericUpDown9;
-        private System.Windows.Forms.ComboBox comboBox7;
-        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.ComboBox UnitBox9;
+        private System.Windows.Forms.ComboBox UnitBox4;
         private System.Windows.Forms.NumericUpDown numericUpDown10;
         private System.Windows.Forms.NumericUpDown numericUpDown11;
-        private System.Windows.Forms.ComboBox comboBox9;
-        private System.Windows.Forms.ComboBox comboBox10;
+        private System.Windows.Forms.ComboBox UnitBox10;
+        private System.Windows.Forms.ComboBox UnitBox5;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.Label label4;
