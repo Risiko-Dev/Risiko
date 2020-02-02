@@ -93,13 +93,13 @@ namespace Risiko_Rechner
 
             playerOneDiceOne = Wuerfel.Next(1, 7);
             playerOneDiceTwo = Wuerfel.Next(1, 7);
-            var S1W3 = Wuerfel.Next(1, 7);
+            var palyerOneDiceThree = Wuerfel.Next(1, 7);
 
             playerTwoDiceOne = Wuerfel.Next(1, 7);
             playerTwoDiceTwo = Wuerfel.Next(1, 7);
             playerOneDices.Add(playerOneDiceOne);
             playerOneDices.Add(playerOneDiceTwo);
-            playerOneDices.Add(S1W3);
+            playerOneDices.Add(palyerOneDiceThree);
 
             PlayerTwoDices.Add(playerTwoDiceOne);
             PlayerTwoDices.Add(playerTwoDiceTwo);
