@@ -9,7 +9,7 @@ namespace Risiko_Rechner
     /// <summary>
     /// Repräsentiert eine Einheit, mit allen damit verbundenen Stats.
     /// </summary>
-    class Unit : ICloneable
+    public class Unit : ICloneable
     {
         // Generell, wenn mit Klassen und Variablen darin gearbeitet wird, ist es besser, Properties anstatt
         // public Variablen zu verwenden. C# macht dies sehr leicht, durch die Verwendung von Autoproperties,

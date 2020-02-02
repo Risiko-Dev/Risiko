@@ -1,6 +1,6 @@
 ﻿namespace Risiko_Rechner
 {
-    partial class FormMain
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -150,7 +150,7 @@
             this.Resetknopf.TabIndex = 8;
             this.Resetknopf.Text = "Reset";
             this.Resetknopf.UseVisualStyleBackColor = true;
-            this.Resetknopf.Click += new System.EventHandler(this.button2_Click);
+            this.Resetknopf.Click += new System.EventHandler(this.ResetProgram);
             // 
             // label3
             // 
@@ -340,7 +340,7 @@
             this.label4.TabIndex = 31;
             this.label4.Text = "gegnerische Einheitenstärke";
             // 
-            // FormMain
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -378,9 +378,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.Textausgabe);
             this.Controls.Add(this.button1);
-            this.Name = "FormMain";
-            this.Text = "FormMain";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.LoadUnits);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
