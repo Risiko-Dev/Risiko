@@ -19,6 +19,8 @@ namespace Risiko_Rechner
         Unit bauplan1 = null;
         Unit bauplan2 = null;
         bool victory = false;
+        Armee DefenderArmee = new Armee();
+        Armee AttackerArmee = new Armee();
         Output outputter = new Output();
 
         public FormMain()
@@ -30,19 +32,12 @@ namespace Risiko_Rechner
         private void button1_Click(object sender, EventArgs e)
         {
             victory = false;
-
-            string name1 = UnitBox1.Text;
-            string name2 = UnitBox6.Text;
-
-            playerOneUnitsAlive = (int)numericUpDown1.Value;
-            playerTwoUnitsAlive = (int)numericUpDown2.Value;
-
             var UnitMissing = UnitsMissing();
 
 
             if (!UnitMissing)
             {
-                Setup(name1, name2);
+                Fight();
             }
 
 
@@ -52,54 +47,60 @@ namespace Risiko_Rechner
         {
             var comboBoxes = this.Controls
             .OfType<ComboBox>()
-            .Where(x => x.Name.StartsWith("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
+            .Where(x => x.Name.Contains("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
 
-            var Unitnumbers = this.Controls
+            var unitnumbers = this.Controls
             .OfType<NumericUpDown>()
-            .Where(x => x.Name.StartsWith("numericUpDown")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+            .Where(x => x.Name.Contains("UnitNumber")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
 
             var count = 0;
-            var goFight = true;
-            foreach (var item in comboBoxes) //check ob in einem Feld ne unit ausgewählt is und anzahl größer 0
+            foreach (var combobox in comboBoxes) //check ob in einem Feld ne unit ausgewählt is und anzahl größer 0
             {
-                if (item.SelectedItem == null)
+                if (combobox.SelectedItem == null)
                 {
+                    count++;
+                    continue;
+                }
+                if ((combobox.SelectedItem.ToString() != null || combobox.SelectedItem.ToString() != String.Empty))
+                {
+                    Unit unit = GetUnit(combobox.SelectedItem.ToString());
+                    AddToArmee(combobox, unit, (int)unitnumbers.ToList()[count].Value);
+                    count++;
                     continue;
                 }
                 count++;
-                if ((item.SelectedItem.ToString() != null || item.SelectedItem.ToString() != String.Empty) && Unitnumbers.ToList()[count].Value != 0)
-                {
-                    goFight = false;
-                }
-
             }
-            if (goFight)
+            return (outputter.Missing(AttackerArmee, "Angreifer") && outputter.Missing(AttackerArmee, "Verteidiger"));
+    
+        }
+        private Unit GetUnit(Object item)
+        {
+            foreach (var unit in Units)
             {
-                return false;
+                if (unit.Name == item)
+                {
+                    return unit;
+                }
+            }
+            return null;
+        }
+        private void AddToArmee(ComboBox UnitName, Unit unit, int UnitNumber = 0)
+        {
+            if (UnitName.Name.Contains("Defender"))
+            {
+                DefenderArmee.Units.Add(unit);
+                DefenderArmee.NumberOfUnit.Add(UnitNumber);
             }
             else
             {
-                outputter.Missing(comboBoxes.ToList(), Unitnumbers.ToList());
-                return true;
+                AttackerArmee.Units.Add(unit);
+                AttackerArmee.NumberOfUnit.Add(UnitNumber);
             }
         }
-
-        private void Setup(string name1, string name2)
-        {
-            //hab mal das foreach zu einer Linq abfrage geändert -> einfacher zu lesen
-
-            bauplan1 = Units.Where(a => a.Name == name1).FirstOrDefault();
-
-            bauplan2 = Units.Where(a => a.Name == name2).FirstOrDefault();
-
-            playerOneUnit = (Unit)bauplan1.Clone();
-            playerTwoUnit = (Unit)bauplan2.Clone();
-
-            Fight();
-        }
-
         private void Fight()
         {
+
+            GetUnits();
             do
             {
 
@@ -119,7 +120,13 @@ namespace Risiko_Rechner
 
             } while ((playerOneUnitsAlive > 0 && playerTwoUnitsAlive > 0) && !victory);
         }
-
+        private void GetUnits()
+        {
+            playerOneUnit = AttackerArmee.Units[0];
+            playerOneUnitsAlive = AttackerArmee.NumberOfUnit[0];
+            playerTwoUnit = DefenderArmee.Units[0];
+            playerTwoUnitsAlive = DefenderArmee.NumberOfUnit[0];
+        }
         private void RollDices(out int playerOneDiceOne, out int playerOneDiceTwo, out int playerTwoDiceOne, out int playerTwoDiceTwo)
         {
             List<int> playerOneDices = new List<int>();
@@ -194,15 +201,42 @@ namespace Risiko_Rechner
         {
             if (playerOneUnitsAlive <= 0)
             {
+                if (AttackerArmee.NumberOfUnit.Count > 0)
+                {
+                    NextUnits(AttackerArmee, 1);
+                    return;
+                }
                 outputter.Victory("Verteidiger");
                 victory = true;
             }
             if (playerTwoUnitsAlive <= 0)
             {
+                if (AttackerArmee.NumberOfUnit.Count > 0)
+                {
+                    NextUnits(DefenderArmee, 0);
+                    return;
+                }
                 outputter.Victory("Angreifer");
                 victory = true;
             }
         }
+
+        private void NextUnits(Armee armee, int player)
+        {
+            armee.NumberOfUnit.RemoveAt(0);
+            armee.Units.RemoveAt(0);
+            if (player == 1)
+            {
+                playerOneUnit = AttackerArmee.Units[0];
+                playerOneUnitsAlive = AttackerArmee.NumberOfUnit[0];
+            }
+            else
+            {
+                playerTwoUnit = DefenderArmee.Units[0];
+                playerTwoUnitsAlive = DefenderArmee.NumberOfUnit[0];
+            }
+        }
+
         private void LoadUnits(object sender, EventArgs e)
         {
             // csv einlesen
@@ -211,24 +245,25 @@ namespace Risiko_Rechner
 
             foreach (Unit einheit in Units)
             {
-                UnitBox1.Items.Add(einheit.Name);
-                UnitBox6.Items.Add(einheit.Name);
+                AttackerUnitBox1.Items.Add(einheit.Name);
+                DefenderUnitBox6.Items.Add(einheit.Name);
             }
             SetupGUI();
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
         }
         private void SetupGUI()
         {
-            var comboBoxes = this.Controls
+        var comboBoxes = this.Controls
         .OfType<ComboBox>()
-        .Where(x => x.Name.StartsWith("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
+        .Where(x => x.Name.Contains("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
 
             var Unitnumbers = this.Controls
             .OfType<NumericUpDown>()
-            .Where(x => x.Name.StartsWith("numericUpDown")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+            .Where(x => x.Name.Contains("UnitNumber")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
 
-            for (int i = 0; i < comboBoxes.Count(); i++)
+            for (int i = 0; i < comboBoxes.Count(); i++) // nur der erste Angreifer und Verteidiger soll auswählbar sein 
             {
+                comboBoxes.ToList()[i].Text = string.Empty;
                 if (comboBoxes.ToList()[i].Name.Contains("1") || comboBoxes.ToList()[i].Name.Contains("6"))
                 {
                     if (comboBoxes.ToList()[i].Name.Contains("10"))
@@ -248,58 +283,58 @@ namespace Risiko_Rechner
 
         private void UnitBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox2.Enabled = true;
-            numericUpDown2.Enabled = true;
-            removeEntry(UnitBox1, UnitBox2, UnitBox1.Text);
+            AttackerUnitBox2.Enabled = true;
+            AttackerUnitNumber2.Enabled = true;
+            removeEntry(AttackerUnitBox1, AttackerUnitBox2, AttackerUnitBox1.Text);
         }
 
         private void UnitBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox3.Enabled = true;
-            numericUpDown3.Enabled = true;
-            removeEntry(UnitBox2,UnitBox3, UnitBox2.Text);
+            AttackerUnitBox3.Enabled = true;
+            AttackerUnitNumber3.Enabled = true;
+            removeEntry(AttackerUnitBox2,AttackerUnitBox3, AttackerUnitBox2.Text);
         }
 
         private void UnitBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox4.Enabled = true;
-            numericUpDown4.Enabled = true;
-            removeEntry(UnitBox3,UnitBox4, UnitBox3.Text);
+            AttackerUnitBox4.Enabled = true;
+            AttackerUnitNumber4.Enabled = true;
+            removeEntry(AttackerUnitBox3,AttackerUnitBox4, AttackerUnitBox3.Text);
         }
 
         private void UnitBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox5.Enabled = true;
-            numericUpDown5.Enabled = true;
-            removeEntry(UnitBox4,UnitBox5, UnitBox4.Text);
+            AttackerUnitBox5.Enabled = true;
+            AttackerUnitNumber5.Enabled = true;
+            removeEntry(AttackerUnitBox4,AttackerUnitBox5, AttackerUnitBox4.Text);
         }
 
         private void UnitBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox7.Enabled = true;
-            numericUpDown7.Enabled = true;
-            removeEntry(UnitBox6, UnitBox7, UnitBox6.Text);
+            DefenderUnitBox7.Enabled = true;
+            DefenderUnitNumber7.Enabled = true;
+            removeEntry(DefenderUnitBox6, DefenderUnitBox7, DefenderUnitBox6.Text);
         }
 
         private void UnitBox7_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox8.Enabled = true;
-            numericUpDown8.Enabled = true;
-            removeEntry(UnitBox7, UnitBox8, UnitBox7.Text);
+            DefenderUnitBox8.Enabled = true;
+            DefenderUnitNumber8.Enabled = true;
+            removeEntry(DefenderUnitBox7, DefenderUnitBox8, DefenderUnitBox7.Text);
         }
 
         private void UnitBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox9.Enabled = true;
-            numericUpDown9.Enabled = true;
-            removeEntry(UnitBox8, UnitBox9, UnitBox8.Text);
+            DefenderUnitBox9.Enabled = true;
+            DefenderUnitNumber9.Enabled = true;
+            removeEntry(DefenderUnitBox8, DefenderUnitBox9, DefenderUnitBox8.Text);
         }
 
         private void UnitBox9_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UnitBox10.Enabled = true;
-            numericUpDown10.Enabled = true;
-            removeEntry(UnitBox9, UnitBox10, UnitBox9.Text);
+            DefenderUnitBox10.Enabled = true;
+            DefenderUnitNumber10.Enabled = true;
+            removeEntry(DefenderUnitBox9, DefenderUnitBox10, DefenderUnitBox9.Text);
         }
         private void removeEntry(ComboBox comboBoxOld, ComboBox comboBoxNew, string name)
         {
@@ -323,13 +358,14 @@ namespace Risiko_Rechner
 
             var Unitnumbers = this.Controls
             .OfType<NumericUpDown>()
-            .Where(x => x.Name.StartsWith("numericUpDown")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+            .Where(x => x.Name.Contains("UnitNumber")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
 
             foreach (var item in Unitnumbers)
             {
                 item.Value = 0;
             }
-            UnitBox1.Text = string.Empty;
+            AttackerArmee = new Armee();
+            DefenderArmee = new Armee();
             SetupGUI();
             Round = 0;
 
@@ -339,7 +375,6 @@ namespace Risiko_Rechner
             if (playerOneUnitHitpoints <= 0)
             {
                 playerOneUnitsAlive--;
-                playerOneUnit = (Unit)bauplan1.Clone();
                 //Kill anouncment
                 victory = outputter.UnitDeath(playerOneUnitsAlive, "Angreifer");
             }
@@ -347,7 +382,6 @@ namespace Risiko_Rechner
             if (playerTwoUnitHitpoints <= 0)
             {
                 playerTwoUnitsAlive--;
-                playerTwoUnit = (Unit)bauplan2.Clone();
                 //Kill anouncment
                 victory = outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger");
             }

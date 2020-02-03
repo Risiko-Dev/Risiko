@@ -10,35 +10,19 @@ namespace Risiko_Rechner
     {
         public System.Windows.Forms.TextBox outputTextbox;
 
-        public void Missing(List<System.Windows.Forms.ComboBox> comboBoxes, List<System.Windows.Forms.NumericUpDown> numerics)
+        public bool Missing(Armee armee, string player)
         {
-
-        }
-        public bool MissingUnitNames(string name1, string name2)
-        {
-            if (name1 == "")
+            var somethingMissing = false;
+            for (int i = 0; i < armee.Units.Count; i++)
             {
-                outputTextbox.Text += Environment.NewLine + "Angreifer, wählen Sie eine Einheitenklasse";
-                return true;
+                if (armee.NumberOfUnit[i] == 0)
+                {
+                    outputTextbox.Text += $"{player}, gib deine Truppenzahl der {armee.Units[i]} an!";
+                    somethingMissing = true;
+                }
             }
-            if (name2 == "")
+            if (somethingMissing)
             {
-                outputTextbox.Text += Environment.NewLine + "Verteidiger, wählen Sie eine Einheitklasse";
-                return true;
-            }
-            return false;
-        }
-        public bool MissingUnitNumbers(int unitNumerAttacker, int unitNumberDefender)
-        {
-
-            if (unitNumerAttacker == 0)
-            {
-                outputTextbox.Text += Environment.NewLine + "Angreifer, wählen Sie Ihre Einheitenzahl";
-                return true;
-            }
-            if (unitNumberDefender == 0)
-            {
-                outputTextbox.Text += Environment.NewLine + "Verteidiger, wählen Sie Ihre Einheitenzahl";
                 return true;
             }
             return false;

@@ -30,48 +30,48 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.Textausgabe = new System.Windows.Forms.TextBox();
-            this.UnitBox1 = new System.Windows.Forms.ComboBox();
-            this.UnitBox6 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.AttackerUnitBox1 = new System.Windows.Forms.ComboBox();
+            this.DefenderUnitBox6 = new System.Windows.Forms.ComboBox();
+            this.AttackerUnitNumber1 = new System.Windows.Forms.NumericUpDown();
+            this.DefenderUnitNumber6 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Resetknopf = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.Faehigkeitswahl = new System.Windows.Forms.ComboBox();
             this.AllgFaehigkeiten = new System.Windows.Forms.Button();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.blub = new System.Windows.Forms.NumericUpDown();
             this.Textausgabe2 = new System.Windows.Forms.TextBox();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.UnitBox7 = new System.Windows.Forms.ComboBox();
-            this.UnitBox2 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.UnitBox8 = new System.Windows.Forms.ComboBox();
-            this.UnitBox3 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            this.UnitBox9 = new System.Windows.Forms.ComboBox();
-            this.UnitBox4 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
-            this.UnitBox10 = new System.Windows.Forms.ComboBox();
-            this.UnitBox5 = new System.Windows.Forms.ComboBox();
+            this.DefenderUnitNumber7 = new System.Windows.Forms.NumericUpDown();
+            this.AttackerUnitNumber2 = new System.Windows.Forms.NumericUpDown();
+            this.DefenderUnitBox7 = new System.Windows.Forms.ComboBox();
+            this.AttackerUnitBox2 = new System.Windows.Forms.ComboBox();
+            this.DefenderUnitNumber8 = new System.Windows.Forms.NumericUpDown();
+            this.AttackerUnitNumber3 = new System.Windows.Forms.NumericUpDown();
+            this.DefenderUnitBox8 = new System.Windows.Forms.ComboBox();
+            this.AttackerUnitBox3 = new System.Windows.Forms.ComboBox();
+            this.DefenderUnitNumber9 = new System.Windows.Forms.NumericUpDown();
+            this.AttackerUnitNumber4 = new System.Windows.Forms.NumericUpDown();
+            this.DefenderUnitBox9 = new System.Windows.Forms.ComboBox();
+            this.AttackerUnitBox4 = new System.Windows.Forms.ComboBox();
+            this.DefenderUnitNumber10 = new System.Windows.Forms.NumericUpDown();
+            this.AttackerUnitNumber5 = new System.Windows.Forms.NumericUpDown();
+            this.DefenderUnitBox10 = new System.Windows.Forms.ComboBox();
+            this.AttackerUnitBox5 = new System.Windows.Forms.ComboBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blub)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber5)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -94,37 +94,37 @@
             this.Textausgabe.Size = new System.Drawing.Size(488, 598);
             this.Textausgabe.TabIndex = 1;
             // 
-            // UnitBox1
+            // AttackerUnitBox1
             // 
-            this.UnitBox1.FormattingEnabled = true;
-            this.UnitBox1.Location = new System.Drawing.Point(79, 118);
-            this.UnitBox1.Name = "UnitBox1";
-            this.UnitBox1.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox1.TabIndex = 2;
-            this.UnitBox1.SelectedIndexChanged += new System.EventHandler(this.UnitBox1_SelectedIndexChanged);
+            this.AttackerUnitBox1.FormattingEnabled = true;
+            this.AttackerUnitBox1.Location = new System.Drawing.Point(79, 118);
+            this.AttackerUnitBox1.Name = "AttackerUnitBox1";
+            this.AttackerUnitBox1.Size = new System.Drawing.Size(121, 21);
+            this.AttackerUnitBox1.TabIndex = 2;
+            this.AttackerUnitBox1.SelectedIndexChanged += new System.EventHandler(this.UnitBox1_SelectedIndexChanged);
             // 
-            // UnitBox6
+            // DefenderUnitBox6
             // 
-            this.UnitBox6.FormattingEnabled = true;
-            this.UnitBox6.Location = new System.Drawing.Point(294, 117);
-            this.UnitBox6.Name = "UnitBox6";
-            this.UnitBox6.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox6.TabIndex = 3;
-            this.UnitBox6.SelectedIndexChanged += new System.EventHandler(this.UnitBox6_SelectedIndexChanged);
+            this.DefenderUnitBox6.FormattingEnabled = true;
+            this.DefenderUnitBox6.Location = new System.Drawing.Point(294, 117);
+            this.DefenderUnitBox6.Name = "DefenderUnitBox6";
+            this.DefenderUnitBox6.Size = new System.Drawing.Size(121, 21);
+            this.DefenderUnitBox6.TabIndex = 3;
+            this.DefenderUnitBox6.SelectedIndexChanged += new System.EventHandler(this.UnitBox6_SelectedIndexChanged);
             // 
-            // numericUpDown1
+            // AttackerUnitNumber1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(13, 119);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown1.TabIndex = 4;
+            this.AttackerUnitNumber1.Location = new System.Drawing.Point(13, 119);
+            this.AttackerUnitNumber1.Name = "AttackerUnitNumber1";
+            this.AttackerUnitNumber1.Size = new System.Drawing.Size(60, 20);
+            this.AttackerUnitNumber1.TabIndex = 4;
             // 
-            // numericUpDown2
+            // DefenderUnitNumber6
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(226, 118);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown2.TabIndex = 5;
+            this.DefenderUnitNumber6.Location = new System.Drawing.Point(226, 118);
+            this.DefenderUnitNumber6.Name = "DefenderUnitNumber6";
+            this.DefenderUnitNumber6.Size = new System.Drawing.Size(60, 20);
+            this.DefenderUnitNumber6.TabIndex = 5;
             // 
             // label1
             // 
@@ -180,12 +180,12 @@
             this.AllgFaehigkeiten.Text = "Fähigkeit einsetzen";
             this.AllgFaehigkeiten.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown3
+            // blub
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(157, 645);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown3.TabIndex = 12;
+            this.blub.Location = new System.Drawing.Point(157, 645);
+            this.blub.Name = "blub";
+            this.blub.Size = new System.Drawing.Size(60, 20);
+            this.blub.TabIndex = 12;
             // 
             // Textausgabe2
             // 
@@ -197,131 +197,131 @@
             this.Textausgabe2.Size = new System.Drawing.Size(201, 73);
             this.Textausgabe2.TabIndex = 0;
             // 
-            // numericUpDown4
+            // DefenderUnitNumber7
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(226, 145);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown4.TabIndex = 16;
+            this.DefenderUnitNumber7.Location = new System.Drawing.Point(226, 145);
+            this.DefenderUnitNumber7.Name = "DefenderUnitNumber7";
+            this.DefenderUnitNumber7.Size = new System.Drawing.Size(60, 20);
+            this.DefenderUnitNumber7.TabIndex = 16;
             // 
-            // numericUpDown5
+            // AttackerUnitNumber2
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(13, 146);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown5.TabIndex = 15;
+            this.AttackerUnitNumber2.Location = new System.Drawing.Point(13, 146);
+            this.AttackerUnitNumber2.Name = "AttackerUnitNumber2";
+            this.AttackerUnitNumber2.Size = new System.Drawing.Size(60, 20);
+            this.AttackerUnitNumber2.TabIndex = 15;
             // 
-            // UnitBox7
+            // DefenderUnitBox7
             // 
-            this.UnitBox7.FormattingEnabled = true;
-            this.UnitBox7.Location = new System.Drawing.Point(294, 144);
-            this.UnitBox7.Name = "UnitBox7";
-            this.UnitBox7.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox7.TabIndex = 14;
-            this.UnitBox7.SelectedIndexChanged += new System.EventHandler(this.UnitBox7_SelectedIndexChanged);
+            this.DefenderUnitBox7.FormattingEnabled = true;
+            this.DefenderUnitBox7.Location = new System.Drawing.Point(294, 144);
+            this.DefenderUnitBox7.Name = "DefenderUnitBox7";
+            this.DefenderUnitBox7.Size = new System.Drawing.Size(121, 21);
+            this.DefenderUnitBox7.TabIndex = 14;
+            this.DefenderUnitBox7.SelectedIndexChanged += new System.EventHandler(this.UnitBox7_SelectedIndexChanged);
             // 
-            // UnitBox2
+            // AttackerUnitBox2
             // 
-            this.UnitBox2.FormattingEnabled = true;
-            this.UnitBox2.Location = new System.Drawing.Point(79, 145);
-            this.UnitBox2.Name = "UnitBox2";
-            this.UnitBox2.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox2.TabIndex = 13;
-            this.UnitBox2.SelectedIndexChanged += new System.EventHandler(this.UnitBox2_SelectedIndexChanged);
+            this.AttackerUnitBox2.FormattingEnabled = true;
+            this.AttackerUnitBox2.Location = new System.Drawing.Point(79, 145);
+            this.AttackerUnitBox2.Name = "AttackerUnitBox2";
+            this.AttackerUnitBox2.Size = new System.Drawing.Size(121, 21);
+            this.AttackerUnitBox2.TabIndex = 13;
+            this.AttackerUnitBox2.SelectedIndexChanged += new System.EventHandler(this.UnitBox2_SelectedIndexChanged);
             // 
-            // numericUpDown6
+            // DefenderUnitNumber8
             // 
-            this.numericUpDown6.Location = new System.Drawing.Point(226, 172);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown6.TabIndex = 20;
+            this.DefenderUnitNumber8.Location = new System.Drawing.Point(226, 172);
+            this.DefenderUnitNumber8.Name = "DefenderUnitNumber8";
+            this.DefenderUnitNumber8.Size = new System.Drawing.Size(60, 20);
+            this.DefenderUnitNumber8.TabIndex = 20;
             // 
-            // numericUpDown7
+            // AttackerUnitNumber3
             // 
-            this.numericUpDown7.Location = new System.Drawing.Point(13, 173);
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown7.TabIndex = 19;
+            this.AttackerUnitNumber3.Location = new System.Drawing.Point(13, 173);
+            this.AttackerUnitNumber3.Name = "AttackerUnitNumber3";
+            this.AttackerUnitNumber3.Size = new System.Drawing.Size(60, 20);
+            this.AttackerUnitNumber3.TabIndex = 19;
             // 
-            // UnitBox8
+            // DefenderUnitBox8
             // 
-            this.UnitBox8.FormattingEnabled = true;
-            this.UnitBox8.Location = new System.Drawing.Point(294, 171);
-            this.UnitBox8.Name = "UnitBox8";
-            this.UnitBox8.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox8.TabIndex = 18;
-            this.UnitBox8.SelectedIndexChanged += new System.EventHandler(this.UnitBox8_SelectedIndexChanged);
+            this.DefenderUnitBox8.FormattingEnabled = true;
+            this.DefenderUnitBox8.Location = new System.Drawing.Point(294, 171);
+            this.DefenderUnitBox8.Name = "DefenderUnitBox8";
+            this.DefenderUnitBox8.Size = new System.Drawing.Size(121, 21);
+            this.DefenderUnitBox8.TabIndex = 18;
+            this.DefenderUnitBox8.SelectedIndexChanged += new System.EventHandler(this.UnitBox8_SelectedIndexChanged);
             // 
-            // UnitBox3
+            // AttackerUnitBox3
             // 
-            this.UnitBox3.FormattingEnabled = true;
-            this.UnitBox3.Location = new System.Drawing.Point(79, 172);
-            this.UnitBox3.Name = "UnitBox3";
-            this.UnitBox3.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox3.TabIndex = 17;
-            this.UnitBox3.SelectedIndexChanged += new System.EventHandler(this.UnitBox3_SelectedIndexChanged);
+            this.AttackerUnitBox3.FormattingEnabled = true;
+            this.AttackerUnitBox3.Location = new System.Drawing.Point(79, 172);
+            this.AttackerUnitBox3.Name = "AttackerUnitBox3";
+            this.AttackerUnitBox3.Size = new System.Drawing.Size(121, 21);
+            this.AttackerUnitBox3.TabIndex = 17;
+            this.AttackerUnitBox3.SelectedIndexChanged += new System.EventHandler(this.UnitBox3_SelectedIndexChanged);
             // 
-            // numericUpDown8
+            // DefenderUnitNumber9
             // 
-            this.numericUpDown8.Location = new System.Drawing.Point(226, 199);
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown8.TabIndex = 24;
+            this.DefenderUnitNumber9.Location = new System.Drawing.Point(226, 199);
+            this.DefenderUnitNumber9.Name = "DefenderUnitNumber9";
+            this.DefenderUnitNumber9.Size = new System.Drawing.Size(60, 20);
+            this.DefenderUnitNumber9.TabIndex = 24;
             // 
-            // numericUpDown9
+            // AttackerUnitNumber4
             // 
-            this.numericUpDown9.Location = new System.Drawing.Point(13, 200);
-            this.numericUpDown9.Name = "numericUpDown9";
-            this.numericUpDown9.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown9.TabIndex = 23;
+            this.AttackerUnitNumber4.Location = new System.Drawing.Point(13, 200);
+            this.AttackerUnitNumber4.Name = "AttackerUnitNumber4";
+            this.AttackerUnitNumber4.Size = new System.Drawing.Size(60, 20);
+            this.AttackerUnitNumber4.TabIndex = 23;
             // 
-            // UnitBox9
+            // DefenderUnitBox9
             // 
-            this.UnitBox9.FormattingEnabled = true;
-            this.UnitBox9.Location = new System.Drawing.Point(294, 198);
-            this.UnitBox9.Name = "UnitBox9";
-            this.UnitBox9.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox9.TabIndex = 22;
-            this.UnitBox9.SelectedIndexChanged += new System.EventHandler(this.UnitBox9_SelectedIndexChanged);
+            this.DefenderUnitBox9.FormattingEnabled = true;
+            this.DefenderUnitBox9.Location = new System.Drawing.Point(294, 198);
+            this.DefenderUnitBox9.Name = "DefenderUnitBox9";
+            this.DefenderUnitBox9.Size = new System.Drawing.Size(121, 21);
+            this.DefenderUnitBox9.TabIndex = 22;
+            this.DefenderUnitBox9.SelectedIndexChanged += new System.EventHandler(this.UnitBox9_SelectedIndexChanged);
             // 
-            // UnitBox4
+            // AttackerUnitBox4
             // 
-            this.UnitBox4.FormattingEnabled = true;
-            this.UnitBox4.Location = new System.Drawing.Point(79, 199);
-            this.UnitBox4.Name = "UnitBox4";
-            this.UnitBox4.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox4.TabIndex = 21;
-            this.UnitBox4.SelectedIndexChanged += new System.EventHandler(this.UnitBox4_SelectedIndexChanged);
+            this.AttackerUnitBox4.FormattingEnabled = true;
+            this.AttackerUnitBox4.Location = new System.Drawing.Point(79, 199);
+            this.AttackerUnitBox4.Name = "AttackerUnitBox4";
+            this.AttackerUnitBox4.Size = new System.Drawing.Size(121, 21);
+            this.AttackerUnitBox4.TabIndex = 21;
+            this.AttackerUnitBox4.SelectedIndexChanged += new System.EventHandler(this.UnitBox4_SelectedIndexChanged);
             // 
-            // numericUpDown10
+            // DefenderUnitNumber10
             // 
-            this.numericUpDown10.Location = new System.Drawing.Point(226, 226);
-            this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown10.TabIndex = 28;
+            this.DefenderUnitNumber10.Location = new System.Drawing.Point(226, 226);
+            this.DefenderUnitNumber10.Name = "DefenderUnitNumber10";
+            this.DefenderUnitNumber10.Size = new System.Drawing.Size(60, 20);
+            this.DefenderUnitNumber10.TabIndex = 28;
             // 
-            // numericUpDown11
+            // AttackerUnitNumber5
             // 
-            this.numericUpDown11.Location = new System.Drawing.Point(13, 227);
-            this.numericUpDown11.Name = "numericUpDown11";
-            this.numericUpDown11.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown11.TabIndex = 27;
+            this.AttackerUnitNumber5.Location = new System.Drawing.Point(13, 227);
+            this.AttackerUnitNumber5.Name = "AttackerUnitNumber5";
+            this.AttackerUnitNumber5.Size = new System.Drawing.Size(60, 20);
+            this.AttackerUnitNumber5.TabIndex = 27;
             // 
-            // UnitBox10
+            // DefenderUnitBox10
             // 
-            this.UnitBox10.FormattingEnabled = true;
-            this.UnitBox10.Location = new System.Drawing.Point(294, 225);
-            this.UnitBox10.Name = "UnitBox10";
-            this.UnitBox10.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox10.TabIndex = 26;
+            this.DefenderUnitBox10.FormattingEnabled = true;
+            this.DefenderUnitBox10.Location = new System.Drawing.Point(294, 225);
+            this.DefenderUnitBox10.Name = "DefenderUnitBox10";
+            this.DefenderUnitBox10.Size = new System.Drawing.Size(121, 21);
+            this.DefenderUnitBox10.TabIndex = 26;
             // 
-            // UnitBox5
+            // AttackerUnitBox5
             // 
-            this.UnitBox5.FormattingEnabled = true;
-            this.UnitBox5.Location = new System.Drawing.Point(79, 226);
-            this.UnitBox5.Name = "UnitBox5";
-            this.UnitBox5.Size = new System.Drawing.Size(121, 21);
-            this.UnitBox5.TabIndex = 25;
+            this.AttackerUnitBox5.FormattingEnabled = true;
+            this.AttackerUnitBox5.Location = new System.Drawing.Point(79, 226);
+            this.AttackerUnitBox5.Name = "AttackerUnitBox5";
+            this.AttackerUnitBox5.Size = new System.Drawing.Size(121, 21);
+            this.AttackerUnitBox5.TabIndex = 25;
             // 
             // checkedListBox1
             // 
@@ -356,50 +356,50 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkedListBox2);
             this.Controls.Add(this.checkedListBox1);
-            this.Controls.Add(this.numericUpDown10);
-            this.Controls.Add(this.numericUpDown11);
-            this.Controls.Add(this.UnitBox10);
-            this.Controls.Add(this.UnitBox5);
-            this.Controls.Add(this.numericUpDown8);
-            this.Controls.Add(this.numericUpDown9);
-            this.Controls.Add(this.UnitBox9);
-            this.Controls.Add(this.UnitBox4);
-            this.Controls.Add(this.numericUpDown6);
-            this.Controls.Add(this.numericUpDown7);
-            this.Controls.Add(this.UnitBox8);
-            this.Controls.Add(this.UnitBox3);
-            this.Controls.Add(this.numericUpDown4);
-            this.Controls.Add(this.numericUpDown5);
-            this.Controls.Add(this.UnitBox7);
-            this.Controls.Add(this.UnitBox2);
+            this.Controls.Add(this.DefenderUnitNumber10);
+            this.Controls.Add(this.AttackerUnitNumber5);
+            this.Controls.Add(this.DefenderUnitBox10);
+            this.Controls.Add(this.AttackerUnitBox5);
+            this.Controls.Add(this.DefenderUnitNumber9);
+            this.Controls.Add(this.AttackerUnitNumber4);
+            this.Controls.Add(this.DefenderUnitBox9);
+            this.Controls.Add(this.AttackerUnitBox4);
+            this.Controls.Add(this.DefenderUnitNumber8);
+            this.Controls.Add(this.AttackerUnitNumber3);
+            this.Controls.Add(this.DefenderUnitBox8);
+            this.Controls.Add(this.AttackerUnitBox3);
+            this.Controls.Add(this.DefenderUnitNumber7);
+            this.Controls.Add(this.AttackerUnitNumber2);
+            this.Controls.Add(this.DefenderUnitBox7);
+            this.Controls.Add(this.AttackerUnitBox2);
             this.Controls.Add(this.Textausgabe2);
-            this.Controls.Add(this.numericUpDown3);
+            this.Controls.Add(this.blub);
             this.Controls.Add(this.AllgFaehigkeiten);
             this.Controls.Add(this.Faehigkeitswahl);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Resetknopf);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.UnitBox6);
-            this.Controls.Add(this.UnitBox1);
+            this.Controls.Add(this.DefenderUnitNumber6);
+            this.Controls.Add(this.AttackerUnitNumber1);
+            this.Controls.Add(this.DefenderUnitBox6);
+            this.Controls.Add(this.AttackerUnitBox1);
             this.Controls.Add(this.Textausgabe);
             this.Controls.Add(this.button1);
             this.Name = "FormMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.LoadUnits);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blub)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,34 +409,34 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox Textausgabe;
-        private System.Windows.Forms.ComboBox UnitBox1;
-        private System.Windows.Forms.ComboBox UnitBox6;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.ComboBox AttackerUnitBox1;
+        private System.Windows.Forms.ComboBox DefenderUnitBox6;
+        private System.Windows.Forms.NumericUpDown AttackerUnitNumber1;
+        private System.Windows.Forms.NumericUpDown DefenderUnitNumber6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Resetknopf;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox Faehigkeitswahl;
         private System.Windows.Forms.Button AllgFaehigkeiten;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown blub;
         private System.Windows.Forms.TextBox Textausgabe2;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.ComboBox UnitBox7;
-        private System.Windows.Forms.ComboBox UnitBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.ComboBox UnitBox8;
-        private System.Windows.Forms.ComboBox UnitBox3;
-        private System.Windows.Forms.NumericUpDown numericUpDown8;
-        private System.Windows.Forms.NumericUpDown numericUpDown9;
-        private System.Windows.Forms.ComboBox UnitBox9;
-        private System.Windows.Forms.ComboBox UnitBox4;
-        private System.Windows.Forms.NumericUpDown numericUpDown10;
-        private System.Windows.Forms.NumericUpDown numericUpDown11;
-        private System.Windows.Forms.ComboBox UnitBox10;
-        private System.Windows.Forms.ComboBox UnitBox5;
+        private System.Windows.Forms.NumericUpDown DefenderUnitNumber7;
+        private System.Windows.Forms.NumericUpDown AttackerUnitNumber2;
+        private System.Windows.Forms.ComboBox DefenderUnitBox7;
+        private System.Windows.Forms.ComboBox AttackerUnitBox2;
+        private System.Windows.Forms.NumericUpDown DefenderUnitNumber8;
+        private System.Windows.Forms.NumericUpDown AttackerUnitNumber3;
+        private System.Windows.Forms.ComboBox DefenderUnitBox8;
+        private System.Windows.Forms.ComboBox AttackerUnitBox3;
+        private System.Windows.Forms.NumericUpDown DefenderUnitNumber9;
+        private System.Windows.Forms.NumericUpDown AttackerUnitNumber4;
+        private System.Windows.Forms.ComboBox DefenderUnitBox9;
+        private System.Windows.Forms.ComboBox AttackerUnitBox4;
+        private System.Windows.Forms.NumericUpDown DefenderUnitNumber10;
+        private System.Windows.Forms.NumericUpDown AttackerUnitNumber5;
+        private System.Windows.Forms.ComboBox DefenderUnitBox10;
+        private System.Windows.Forms.ComboBox AttackerUnitBox5;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.Label label4;
