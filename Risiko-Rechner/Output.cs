@@ -121,7 +121,7 @@ namespace Risiko_Rechner
 
             outputTextbox.Text += $"Der {victor} konnte das Feld {task}!";
         }
-        public bool Fight(string Attacker, string Defender, Unit attackerUnit, Unit defenderUnit, out Unit defenderUnitResult)
+        public bool Fight(string Attacker, string Defender, Unit attackerUnit, Unit defenderUnit, out Unit defenderUnitResult, out string withdraler)
         {
             //würfel ergebnis
             outputTextbox.Text += Environment.NewLine + $"{Attacker} führt Attacke aus:";
@@ -136,8 +136,9 @@ namespace Risiko_Rechner
             if (remainingArmor - attackerUnit.AttackDamage >= 0)
             {
                 // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
-                outputTextbox.Text += Environment.NewLine + "Verteidiger kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
+                outputTextbox.Text += Environment.NewLine + $"{Attacker} kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
                 defenderUnitResult = defenderUnit;
+                withdraler = Attacker;
                 return true ;
             }
 
@@ -154,6 +155,7 @@ namespace Risiko_Rechner
                 outputTextbox.Text += Environment.NewLine + $"{Defender} erhält {attackerUnit.AttackDamage} Schaden, kann dabei {remainingArmor} abwehren{Environment.NewLine}{defenderUnit.Name} hat noch {defenderUnit.HitPoints} HP";
             }
             defenderUnitResult = defenderUnit;
+            withdraler = string.Empty;
             return false;
         }
     }
