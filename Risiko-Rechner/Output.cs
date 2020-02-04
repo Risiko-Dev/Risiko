@@ -51,11 +51,11 @@ namespace Risiko_Rechner
             //Würfel
             if (playerTwoDiceTwo < 0)
             {
-                outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne}";
+                outputTextbox.Text += $"{Environment.NewLine}Verteidiger würfelt: {playerTwoDiceOne}";
             }
             else
             {
-                outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
+                outputTextbox.Text += $"{Environment.NewLine}Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
             }
         }
 
@@ -65,7 +65,7 @@ namespace Risiko_Rechner
             //Würfel:
             outputTextbox.Text += $"{Environment.NewLine}Angreifer würfelt: {playerOneDiceOne}, {playerOneDiceOne} und {playerOneDiceTwo}";
             //Würfel
-            outputTextbox.Text += $"{Environment.NewLine} Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
+            outputTextbox.Text += $"{Environment.NewLine}Verteidiger würfelt: {playerTwoDiceOne} und {playerTwoDiceTwo}";
         }
 
         public void HighestDice(int playerOneFirstDice, int playerTwoFirstDice)
