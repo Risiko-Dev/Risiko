@@ -15,6 +15,7 @@ namespace Risiko_Rechner
         Armee defenderArmee = new Armee();
         Armee attackerArmee = new Armee();
 
+
         public void Run(Armee attacker, Armee defender, System.Windows.Forms.TextBox output)
         {
             outputter.outputTextbox = output;
@@ -44,9 +45,9 @@ namespace Risiko_Rechner
 
         private void GetUnits()
         {
-            playerOneUnit = attackerArmee.Units[0];
+            playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
             playerOneUnitsAlive = attackerArmee.NumberOfUnit[0];
-            playerTwoUnit = defenderArmee.Units[0];
+            playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
             playerTwoUnitsAlive = defenderArmee.NumberOfUnit[0];
         }
 
@@ -138,7 +139,7 @@ namespace Risiko_Rechner
             if (playerOneUnitHitpoints <= 0)
             {
                 playerOneUnitsAlive--;
-                playerOneUnit = attackerArmee.Units[0];
+                playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
                 //Kill announcement
                 outputter.UnitDeath(playerOneUnitsAlive, "Angreifer");
             }
@@ -146,7 +147,7 @@ namespace Risiko_Rechner
             if (playerTwoUnitHitpoints <= 0)
             {
                 playerTwoUnitsAlive--;
-                playerTwoUnit = defenderArmee.Units[0];
+                playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
                 //Kill announcement
                 outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger");
             }
@@ -189,12 +190,12 @@ namespace Risiko_Rechner
             {
                 if (player == 1)
                 {
-                    playerOneUnit = attackerArmee.Units[0];
+                    playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
                     playerOneUnitsAlive = attackerArmee.NumberOfUnit[0];
                 }
                 else
                 {
-                    playerTwoUnit = defenderArmee.Units[0];
+                    playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
                     playerTwoUnitsAlive = defenderArmee.NumberOfUnit[0];
                 }
             }
