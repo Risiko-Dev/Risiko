@@ -87,20 +87,20 @@ namespace Risiko_Rechner
         {
             // würfel ausgabe
             MakeSpace(2);
-            outputTextbox.Text += $"zweithöchster Angreifer Würfel: {playerOneSecondDice}.{Environment.NewLine}zweithöchster Verteidiger Würfel:{playerTwoSecondDice}";
+            outputTextbox.Text += $"zweithöchster Angreifer Würfel: {playerOneSecondDice}.{Environment.NewLine}zweithöchster Verteidiger Würfel: {playerTwoSecondDice}";
         }
 
-        public bool UnitDeath(int UnitsAlive, string player)
+        public bool UnitDeath(int UnitsAlive, string player, Unit unit)
         {
             MakeSpace( 2);
             if (UnitsAlive > 0)
             {
-                outputTextbox.Text += $"Der {player} verliert eine Einheit, die nächste rutscht aber schon nach!{Environment.NewLine}{player} hat noch{UnitsAlive} Einheiten übrig.";
+                outputTextbox.Text += $"Der {player} verliert eine Einheit, die nächste rutscht aber schon nach!{Environment.NewLine}{player} hat noch {UnitsAlive} Einheiten übrig.";
                 return false;
             }
             else
             {
-                outputTextbox.Text += $"Der {player} wurde besiegt! Alle Einheiten sind Tod.";
+                outputTextbox.Text += $"Der {player} wurde besiegt! Alle seine {unit.Name} sind Tod.";
                 return true;
             }
         }
@@ -128,7 +128,7 @@ namespace Risiko_Rechner
             if (remainingArmor - attackerUnit.AttackDamage >= 0)
             {
                 // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
-                outputTextbox.Text += Environment.NewLine + $"{Attacker} kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
+                outputTextbox.Text += Environment.NewLine + $"{Attacker} kann die Panzerung des {Defender} nicht durchdringen, er zeiht sein/e {attackerUnit.Name} zurück!";
                 defenderUnitResult = defenderUnit;
                 withdraler = Attacker;
                 return true;

@@ -139,17 +139,21 @@ namespace Risiko_Rechner
             if (playerOneUnitHitpoints <= 0)
             {
                 playerOneUnitsAlive--;
+                if (playerOneUnitsAlive == 0)
+                {
+                    outputter.UnitDeath(playerOneUnitsAlive, "Angreifer", playerOneUnit);
+                }
                 playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
-                //Kill announcement
-                outputter.UnitDeath(playerOneUnitsAlive, "Angreifer");
             }
 
             if (playerTwoUnitHitpoints <= 0)
             {
                 playerTwoUnitsAlive--;
+                if (playerTwoUnitsAlive == 0)
+                { 
+                    outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger", playerTwoUnit);
+                }
                 playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
-                //Kill announcement
-                outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger");
             }
         }
 
@@ -185,6 +189,8 @@ namespace Risiko_Rechner
             if (armee.Units.Count == 0)
             {
                 victory = true;
+                var victor = player == 1 ? "Verteidiger" : "Angreifer";
+                outputter.Victory(victor);
             }
             else
             {
