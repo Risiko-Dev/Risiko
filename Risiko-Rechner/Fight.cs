@@ -14,6 +14,7 @@ namespace Risiko_Rechner
         Output outputter = new Output();
         Armee defenderArmee = new Armee();
         Armee attackerArmee = new Armee();
+
         public void Run(Armee attacker, Armee defender, System.Windows.Forms.TextBox output)
         {
             outputter.outputTextbox = output;
@@ -21,16 +22,16 @@ namespace Risiko_Rechner
             defenderArmee = defender;
             Round = 0;
             GetUnits();
+            
             do
             {
-
                 Round++;
                 int playerOneDiceOne, playerOneDiceTwo, playerTwoDiceOne, playerTwoDiceTwo;
                 RollDices(out playerOneDiceOne, out playerOneDiceTwo, out playerTwoDiceOne, out playerTwoDiceTwo);
                 outputter.StartupText(playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
                 outputter.HighestDice(playerOneDiceOne, playerOneDiceTwo);
 
-                WuerfelErgebnis(playerOneDiceOne, playerTwoDiceOne); //quick reforctor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
+                WuerfelErgebnis(playerOneDiceOne, playerTwoDiceOne); //quick refactor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
 
                 if (!victory && playerOneDiceTwo > 0 && playerTwoDiceTwo > 0)
                 {
@@ -40,6 +41,7 @@ namespace Risiko_Rechner
 
             } while ((playerOneUnitsAlive > 0 && playerTwoUnitsAlive > 0) && !victory);
         }
+
         private void GetUnits()
         {
             playerOneUnit = attackerArmee.Units[0];
@@ -47,6 +49,7 @@ namespace Risiko_Rechner
             playerTwoUnit = defenderArmee.Units[0];
             playerTwoUnitsAlive = defenderArmee.NumberOfUnit[0];
         }
+
         private void RollDices(out int playerOneDiceOne, out int playerOneDiceTwo, out int playerTwoDiceOne, out int playerTwoDiceTwo)
         {
             List<int> playerOneDices = new List<int>();
@@ -58,13 +61,13 @@ namespace Risiko_Rechner
 
             playerOneDiceOne = Wuerfel.Next(1, 7);
             playerOneDiceTwo = Wuerfel.Next(1, 7);
-            var palyerOneDiceThree = Wuerfel.Next(1, 7);
+            var playerOneDiceThree = Wuerfel.Next(1, 7);
 
             playerTwoDiceOne = Wuerfel.Next(1, 7);
             playerTwoDiceTwo = Wuerfel.Next(1, 7);
             playerOneDices.Add(playerOneDiceOne);
             playerOneDices.Add(playerOneDiceTwo);
-            playerOneDices.Add(palyerOneDiceThree);
+            playerOneDices.Add(playerOneDiceThree);
 
             PlayerTwoDices.Add(playerTwoDiceOne);
             PlayerTwoDices.Add(playerTwoDiceTwo);
@@ -87,6 +90,7 @@ namespace Risiko_Rechner
             {
                 playerOneDiceTwo = -1;
             }
+
             if (playerTwoUnitsAlive > 1)
             {
                 playerTwoDiceTwo = PlayerTwoDices[0];
@@ -96,18 +100,21 @@ namespace Risiko_Rechner
                 playerTwoDiceTwo = -1;
             }
         }
+
         private void WuerfelErgebnis(int spieler11, int spieler21)
         {
-            string withdrawler = string.Empty;
+            string withdrawer = string.Empty;
             var withdrawal = false;
+
             if (spieler11 > spieler21)
             {
-                withdrawal = outputter.Fight("Angreifer", "Verteidiger", playerOneUnit, playerTwoUnit, out playerTwoUnit, out withdrawler);
+                withdrawal = outputter.Fight("Angreifer", "Verteidiger", playerOneUnit, playerTwoUnit, out playerTwoUnit, out withdrawer);
             }
             else
             {
-                withdrawal = outputter.Fight("Verteidiger", "Angreifer", playerTwoUnit, playerOneUnit, out playerOneUnit, out withdrawler);
+                withdrawal = outputter.Fight("Verteidiger", "Angreifer", playerTwoUnit, playerOneUnit, out playerOneUnit, out withdrawer);
             }
+
             if (!withdrawal)
             {
                 KillCheck(playerOneUnit.HitPoints, playerTwoUnit.HitPoints);
@@ -115,7 +122,7 @@ namespace Risiko_Rechner
             }
             else
             {
-                if (withdrawler == "Verteidiger")
+                if (withdrawer == "Verteidiger")
                 {
                     NextUnits(defenderArmee, 2);
                 }
@@ -125,13 +132,14 @@ namespace Risiko_Rechner
                 }
             }
         }
+
         private void KillCheck(int playerOneUnitHitpoints, int playerTwoUnitHitpoints)
         {
             if (playerOneUnitHitpoints <= 0)
             {
                 playerOneUnitsAlive--;
                 playerOneUnit = attackerArmee.Units[0];
-                //Kill anouncment
+                //Kill announcement
                 outputter.UnitDeath(playerOneUnitsAlive, "Angreifer");
             }
 
@@ -139,10 +147,11 @@ namespace Risiko_Rechner
             {
                 playerTwoUnitsAlive--;
                 playerTwoUnit = defenderArmee.Units[0];
-                //Kill anouncment
+                //Kill announcement
                 outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger");
             }
         }
+
         private void VictoryCheck()
         {
             if (playerOneUnitsAlive <= 0)
@@ -155,6 +164,7 @@ namespace Risiko_Rechner
                 outputter.Victory("Verteidiger");
                 victory = true;
             }
+
             if (playerTwoUnitsAlive <= 0)
             {
                 if (attackerArmee.NumberOfUnit.Count > 0)

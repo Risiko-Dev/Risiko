@@ -15,18 +15,14 @@ namespace Risiko_Rechner
             var somethingMissing = false;
             for (int i = 0; i < armee.Units.Count; i++)
             {
-                if (armee.NumberOfUnit[i] == 0)
-                {
-                    outputTextbox.Text += $"{player}, gib deine Truppenzahl der {armee.Units[i]} an!";
-                    somethingMissing = true;
-                }
+                if (armee.NumberOfUnit[i] != 0) continue;
+
+                outputTextbox.Text += $"{player}, gib deine Truppenzahl der {armee.Units[i]} an!";
+                somethingMissing = true;
             }
-            if (somethingMissing)
-            {
-                return true;
-            }
-            return false;
+            return somethingMissing;
         }
+
         public void StartupText(int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
         {
             MakeSpace(3);
@@ -40,7 +36,7 @@ namespace Risiko_Rechner
             }
         }
 
-        private  void ShortendArmee( int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
+        private void ShortendArmee(int playerOneDiceOne, int playerTwoDiceOne, int playerOneDiceTwo, int playerTwoDiceTwo, int Round)
         {
             outputTextbox.Text += $"Kampfrunde: {Round}";
             //Würfel:
@@ -87,12 +83,13 @@ namespace Risiko_Rechner
             }
         }
 
-        public void SecondHighestDice( int playerOneSecondDice, int playerTwoSecondDice)
+        public void SecondHighestDice(int playerOneSecondDice, int playerTwoSecondDice)
         {
             // würfel ausgabe
             MakeSpace(2);
-            outputTextbox.Text += $"zweithöchster Angreifer Würfel: {playerOneSecondDice}.{Environment.NewLine}zweithöchsterhöchster Verteidiger Würfel:{playerTwoSecondDice}";
+            outputTextbox.Text += $"zweithöchster Angreifer Würfel: {playerOneSecondDice}.{Environment.NewLine}zweithöchster Verteidiger Würfel:{playerTwoSecondDice}";
         }
+
         public bool UnitDeath(int UnitsAlive, string player)
         {
             MakeSpace( 2);
@@ -107,20 +104,15 @@ namespace Risiko_Rechner
                 return true;
             }
         }
+
         public void Victory(string victor)
         {
             var task = string.Empty;
-            if (victor == "Angreifer")
-            {
-                task = "erobrern";
-            }
-            else
-            {
-                task = "verteidigen";
-            }
+            task = victor == "Angreifer" ? "erobern" : "verteidigen";
 
             outputTextbox.Text += $"Der {victor} konnte das Feld {task}!";
         }
+
         public bool Fight(string Attacker, string Defender, Unit attackerUnit, Unit defenderUnit, out Unit defenderUnitResult, out string withdraler)
         {
             //würfel ergebnis
@@ -139,7 +131,7 @@ namespace Risiko_Rechner
                 outputTextbox.Text += Environment.NewLine + $"{Attacker} kann die Panzerung des Angreifers nicht durchdringen, er muss sich zurückziehen";
                 defenderUnitResult = defenderUnit;
                 withdraler = Attacker;
-                return true ;
+                return true;
             }
 
             if (remainingArmor == 0)
