@@ -42,13 +42,22 @@ namespace Risiko_Rechner
         }
         private bool UnitsMissing()
         {
-            var comboBoxes = this.Controls
-            .OfType<ComboBox>()
-            .Where(x => x.Name.Contains("UnitBox")); //finde alle Comboboxen die fürs einheiten auswählen sind
+            var groupBoxes = this.Controls
+            .OfType<GroupBox>();
 
-            var unitnumbers = this.Controls
-            .OfType<NumericUpDown>()
-            .Where(x => x.Name.Contains("UnitNumber")); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+            List<ComboBox> comboBoxes = new List<ComboBox>();
+            List<NumericUpDown> unitnumbers = new List<NumericUpDown>(); ;
+
+            foreach (var item in groupBoxes)
+            {
+                 comboBoxes.AddRange(item.Controls
+                .OfType<ComboBox>()
+                .Where(x => x.Name.Contains("UnitBox")).ToList()); //finde alle Comboboxen die fürs einheiten auswählen sind
+                
+                unitnumbers.AddRange(item.Controls
+                .OfType<NumericUpDown>()
+                .Where(x => x.Name.Contains("UnitNumber")).ToList()); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+            }
 
             var count = 0;
             foreach (var combobox in comboBoxes) //check ob in einem Feld ne unit ausgewählt is und anzahl größer 0
@@ -246,7 +255,7 @@ namespace Risiko_Rechner
                 String[] DatenArray = _values[1].Split(',');
                 // Das Objekt Einheit wird angelegt mit allen Eigenschaften
                 Unit Einheit = new Unit(loadname, Convert.ToInt16(DatenArray[0]), Convert.ToInt16(DatenArray[1]), Convert.ToInt16(DatenArray[2]), Convert.ToInt16(DatenArray[3]));
-    
+
                 if (Einheit != null)
                 {
                     // die Eineheiten werden der Liste des Units hinzugefügt
