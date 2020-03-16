@@ -9,10 +9,12 @@ namespace Risiko_Rechner
     /// <summary>
     /// Repräsentiert einen Stapel von Einheiten im Kampf.
     /// </summary>
-    class Stack
+    public class Stack
     {
-        public Unit StackUnit { get; set; }
+        public Unit StackUnit { get; private set; }
         public int Count;
+
+        private Unit _templateUnit;
 
         /// <summary>
         /// Erstellt eine Instanz eines Stacks, mit einer Einheit.
@@ -21,6 +23,7 @@ namespace Risiko_Rechner
         public Stack(Unit unit)
         {
             StackUnit = unit;
+            _templateUnit = unit;
             Count = 1;
         }
 
@@ -32,6 +35,7 @@ namespace Risiko_Rechner
         public Stack(Unit unit, int count)
         {
             StackUnit = unit;
+            _templateUnit = unit;
             Count = count;
         }
 
@@ -45,6 +49,7 @@ namespace Risiko_Rechner
                 throw new Exception("all units already dead");
             }
             Count--;
+            RefreshUnit();
         }
 
         /// <summary>
@@ -57,6 +62,22 @@ namespace Risiko_Rechner
                 throw new Exception("all units already dead");
             }
             Count -= amount;
+            RefreshUnit();
+        }
+
+        private void RefreshUnit()
+        {
+            StackUnit = _templateUnit;
+        }
+
+        public bool Equals(Stack that)
+        {
+            return this.StackUnit.Equals(that.StackUnit);
+        }
+
+        public override string ToString()
+        {
+            return StackUnit.Name + ", " + Count;
         }
     }
 }

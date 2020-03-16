@@ -3,22 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Risiko_Rechner
 {
     public class Output
     {
-        public System.Windows.Forms.TextBox outputTextbox;
+        public TextBox outputTextbox;
+
+        public void ReportRound()
+        {
+            outputTextbox.Text += "Runde absolviert." + Environment.NewLine;
+        }
+
+        public void Report(string output)
+        {
+            outputTextbox.Text += output + Environment.NewLine;
+        }
 
         public bool Missing(Armee armee, string player)
         {
             var somethingMissing = false;
-            for (int i = 0; i < armee.Units.Count; i++)
+            try
             {
-                if (armee.NumberOfUnit[i] != 0) continue;
+                foreach (Stack stack in armee.Stacks)
+                {
+                    if (stack.Count != 0) continue;
 
-                outputTextbox.Text += $"{player}, gib deine Truppenzahl der {armee.Units[i]} an!";
-                somethingMissing = true;
+                    outputTextbox.Text += $"{player}, gib deine Truppenzahl der {stack.StackUnit.Name} an!";
+                    somethingMissing = true;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Fehler ist aufgetreten");
             }
             return somethingMissing;
         }
@@ -113,7 +131,7 @@ namespace Risiko_Rechner
             outputTextbox.Text += $"Der {victor} konnte das Feld {task}!";
         }
 
-        public bool Fight(string Attacker, string Defender, Unit attackerUnit, Unit defenderUnit, out Unit defenderUnitResult, out string withdraler)
+        public bool Fight(string Attacker, string Defender, Unit attackerUnit, Unit defenderUnit, out Unit defenderUnitResult, out string withdrawer)
         {
             //würfel ergebnis
             outputTextbox.Text += Environment.NewLine + $"{Attacker} führt Attacke aus:";
@@ -130,7 +148,7 @@ namespace Risiko_Rechner
                 // TEXT: ABBRUCH DES KAMPFES, 2 zieht sich zurück
                 outputTextbox.Text += Environment.NewLine + $"{Attacker} kann die Panzerung des {Defender} nicht durchdringen, er zeiht sein/e {attackerUnit.Name} zurück!";
                 defenderUnitResult = defenderUnit;
-                withdraler = Attacker;
+                withdrawer = Attacker;
                 return true;
             }
 
@@ -147,7 +165,7 @@ namespace Risiko_Rechner
                 outputTextbox.Text += Environment.NewLine + $"{Defender} erhält {attackerUnit.AttackDamage} Schaden, kann dabei {remainingArmor} abwehren{Environment.NewLine}{defenderUnit.Name} hat noch {defenderUnit.HitPoints} HP";
             }
             defenderUnitResult = defenderUnit;
-            withdraler = string.Empty;
+            withdrawer = string.Empty;
             return false;
         }
     }

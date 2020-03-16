@@ -14,32 +14,43 @@ namespace Risiko_Rechner
     public partial class FormMain : Form
     {
         List<Unit> Units = new List<Unit>();
-        Armee defenderArmee = new Armee();
-        Armee attackerArmee = new Armee();
-        Output outputter = new Output();
+
+        private Player attackerPlayer;
+        private Player defenderPlayer;
+
+        Armee attackerArmy = new Armee();
+        Armee defenderArmy = new Armee();
+
+        Output reporter = new Output();
 
         public FormMain()
         {
             InitializeComponent();
-            outputter.outputTextbox = Textausgabe;
+            reporter.outputTextbox = Textausgabe;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            attackerPlayer = new Player(PlayerType.Attacker); 
+            defenderPlayer = new Player(PlayerType.Defender);
+
+            reporter.outputTextbox.Clear();
             var UnitMissing = UnitsMissing();
 
             if (!UnitMissing)
             {
-                swap(attackerArmee);
-                swap(defenderArmee);
-                new Fight().Run(attackerArmee, defenderArmee, Textausgabe);
+                Swap(attackerArmy);
+                Swap(defenderArmy);
+
+                Fight calculation = new Fight(attackerPlayer, defenderPlayer, reporter);
             }
         }
-        private void swap(Armee armee)
+
+        private void Swap(Armee armee)
         {
-            armee.Units.Reverse();
-            armee.NumberOfUnit.Reverse();
+            armee.Stacks.Reverse();
         }
+
         private bool UnitsMissing()
         {
             var groupBoxes = this.Controls
@@ -68,7 +79,7 @@ namespace Risiko_Rechner
                     continue;
                 }
 
-                if ((combobox.SelectedItem.ToString() != null || combobox.SelectedItem.ToString() != String.Empty))
+                if ((combobox.SelectedItem.ToString() != null || combobox.SelectedItem.ToString() != string.Empty))
                 {
                     Unit unit = GetUnit(combobox.SelectedItem.ToString());
                     AddToArmee(combobox, unit, (int)unitnumbers.ToList()[count].Value);
@@ -77,33 +88,34 @@ namespace Risiko_Rechner
                 }
                 count++;
             }
-            return (outputter.Missing(attackerArmee, "Angreifer") && outputter.Missing(attackerArmee, "Verteidiger"));
+            return (reporter.Missing(attackerArmy, "Angreifer") && reporter.Missing(attackerArmy, "Verteidiger"));
 
         }
+
         private Unit GetUnit(Object item)
         {
             foreach (var unit in Units)
             {
-                if (unit.Name == item)
+                if (unit.Name == (string)item)
                 {
                     return unit;
                 }
             }
             return null;
         }
+
         private void AddToArmee(ComboBox UnitName, Unit unit, int UnitNumber = 0)
         {
             if (UnitName.Name.Contains("Defender"))
             {
-                defenderArmee.Units.Add(unit);
-                defenderArmee.NumberOfUnit.Add(UnitNumber);
+                defenderPlayer.Armee.Stacks.Add(new Stack(unit, UnitNumber));
             }
             else
             {
-                attackerArmee.Units.Add(unit);
-                attackerArmee.NumberOfUnit.Add(UnitNumber);
+                attackerPlayer.Armee.Stacks.Add(new Stack(unit, UnitNumber));
             }
         }
+
         private void LoadUnits(object sender, EventArgs e)
         {
             // csv einlesen
@@ -115,7 +127,7 @@ namespace Risiko_Rechner
                 DefenderUnitBox6.Items.Add(einheit.Name);
             }
             SetupGUI();
-            Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!";
+            Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!" + Environment.NewLine;
         }
         private void SetupGUI()
         {
@@ -232,10 +244,11 @@ namespace Risiko_Rechner
             {
                 item.Value = 0;
             }
-            attackerArmee = new Armee();
-            defenderArmee = new Armee();
+            attackerArmy = new Armee();
+            defenderArmy = new Armee();
             SetupGUI();
         }
+
         private void Unitserzeugen(String pfad)
         {
             Textausgabe.Text += Environment.NewLine + "Units werden eingelesen";
@@ -247,7 +260,7 @@ namespace Risiko_Rechner
             {
                 // einzelne Zeile einlesen 
                 String line = reader.ReadLine();
-                // Teile der Zeile werden getrennt (Semikoleon ist Trennzeichen)
+                // Teile der Zeile werden getrennt (Semikolon ist Trennzeichen)
                 String[] _values = line.Split(';');
                 // die erste Spalte gibt die ID an
                 String loadname = _values[0];
