@@ -65,7 +65,7 @@ namespace Risiko_Rechner
             RefreshUnit();
         }
 
-        private void RefreshUnit()
+        private void refreshUnit()
         {
             StackUnit = _templateUnit;
         }
