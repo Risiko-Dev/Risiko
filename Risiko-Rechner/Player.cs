@@ -111,7 +111,7 @@ namespace Risiko_Rechner
         /// <summary>
         /// Sortiert die Würfelliste, und kürzt sie auf zwei Zahlen.
         /// </summary>
-        private void SortDices()
+        private void sortDices()
         {
             DiceList.Sort();
             DiceList.Reverse();
