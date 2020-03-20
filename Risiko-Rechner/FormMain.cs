@@ -35,12 +35,12 @@ namespace Risiko_Rechner
             defenderPlayer = new Player(PlayerType.Defender);
 
             reporter.outputTextbox.Clear();
-            var UnitMissing = UnitsMissing();
+            var UnitMissing = unitsMissing();
 
             if (!UnitMissing)
             {
-                Swap(attackerArmy);
-                Swap(defenderArmy);
+                swap(attackerArmy);
+                swap(defenderArmy);
 
                 Fight calculation = new Fight(attackerPlayer, defenderPlayer, reporter);
             }
@@ -81,8 +81,8 @@ namespace Risiko_Rechner
 
                 if ((combobox.SelectedItem.ToString() != null || combobox.SelectedItem.ToString() != string.Empty))
                 {
-                    Unit unit = GetUnit(combobox.SelectedItem.ToString());
-                    AddToArmee(combobox, unit, (int)unitnumbers.ToList()[count].Value);
+                    Unit unit = getUnit(combobox.SelectedItem.ToString());
+                    addToArmee(combobox, unit, (int)unitnumbers.ToList()[count].Value);
                     count++;
                     continue;
                 }
@@ -119,14 +119,14 @@ namespace Risiko_Rechner
         private void loadUnits(object sender, EventArgs e)
         {
             // csv einlesen
-            Unitserzeugen(@"..\..\Units.csv");
+            unitserzeugen(@"..\..\Units.csv");
 
             foreach (Unit einheit in Units)
             {
                 AttackerUnitBox1.Items.Add(einheit.Name);
                 DefenderUnitBox6.Items.Add(einheit.Name);
             }
-            SetupGUI();
+            setupGUI();
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!" + Environment.NewLine;
         }
         private void setupGUI()
@@ -246,7 +246,7 @@ namespace Risiko_Rechner
             }
             attackerArmy = new Armee();
             defenderArmy = new Armee();
-            SetupGUI();
+            setupGUI();
         }
 
         private void unitserzeugen(String pfad)

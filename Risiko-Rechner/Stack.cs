@@ -49,7 +49,7 @@ namespace Risiko_Rechner
                 throw new Exception("all units already dead");
             }
             Count--;
-            RefreshUnit();
+            refreshUnit();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Risiko_Rechner
                 throw new Exception("all units already dead");
             }
             Count -= amount;
-            RefreshUnit();
+            refreshUnit();
         }
 
         private void refreshUnit()

@@ -40,7 +40,7 @@ namespace Risiko_Rechner
             
             // execute first sub round
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
-            ExecSubRound(Round.One);
+            execSubRound(round.One);
             
             if (_playerOne.HasValidStack()) 
             {
@@ -62,7 +62,7 @@ namespace Risiko_Rechner
                 return;
             }
 
-            ExecSubRound(Round.Two);
+            execSubRound(round.Two);
 
             if (_playerOne.HasValidStack())
             {
@@ -83,14 +83,14 @@ namespace Risiko_Rechner
             }
         }
 
-        private void execSubRound(Round round)
+        private void execSubRound(round round)
         {
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
          
-            TestWithdraw();
+            testWithdraw();
 
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
-            if (DecideAttacker(round) == _playerOne)
+            if (decideAttacker(round) == _playerOne)
             {
                 _playerTwo.GetDamage(_playerOne);
             }
@@ -100,9 +100,9 @@ namespace Risiko_Rechner
             }
         }
 
-        private Player decideAttacker(Round round)
+        private Player decideAttacker(round round)
         {
-            if (round == Round.One)
+            if (round == round.One)
             {
                 return _playerTwo.HighestDice() >= _playerOne.HighestDice() ? _playerTwo : _playerOne;
             }

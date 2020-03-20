@@ -95,8 +95,8 @@ namespace Risiko_Rechner
         public void ThrowDice()
         {
             DiceList.Clear();
-            GenerateDices();
-            SortDices();
+            generateDices();
+            sortDices();
         }
 
         /// <summary>
