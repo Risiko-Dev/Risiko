@@ -104,7 +104,7 @@ namespace Risiko_Rechner
             return null;
         }
 
-        private void AddToArmee(ComboBox UnitName, Unit unit, int UnitNumber = 0)
+        private void addToArmee(ComboBox UnitName, Unit unit, int UnitNumber = 0)
         {
             if (UnitName.Name.Contains("Defender"))
             {
