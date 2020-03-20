@@ -122,7 +122,7 @@ namespace Risiko_Rechner
         /// <summary>
         /// Generiert eine neue Würfelliste.
         /// </summary>
-        private void GenerateDices()
+        private void generateDices()
         {
             int diceCount = PlayerType == PlayerType.Attacker ? 3 : 2;
 
