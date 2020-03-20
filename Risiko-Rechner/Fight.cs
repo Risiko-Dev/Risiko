@@ -83,7 +83,7 @@ namespace Risiko_Rechner
             }
         }
 
-        private void ExecSubRound(Round round)
+        private void execSubRound(Round round)
         {
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
          
