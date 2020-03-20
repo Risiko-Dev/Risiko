@@ -46,7 +46,7 @@ namespace Risiko_Rechner
             }
         }
 
-        private void Swap(Armee armee)
+        private void swap(Armee armee)
         {
             armee.Stacks.Reverse();
         }
