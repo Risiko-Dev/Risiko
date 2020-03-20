@@ -100,7 +100,7 @@ namespace Risiko_Rechner
             }
         }
 
-        private Player DecideAttacker(Round round)
+        private Player decideAttacker(Round round)
         {
             if (round == Round.One)
             {
