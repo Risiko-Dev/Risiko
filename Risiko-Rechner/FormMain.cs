@@ -249,7 +249,7 @@ namespace Risiko_Rechner
             SetupGUI();
         }
 
-        private void Unitserzeugen(String pfad)
+        private void unitserzeugen(String pfad)
         {
             Textausgabe.Text += Environment.NewLine + "Units werden eingelesen";
             // Objekt zum Einlesen von Dateien wird angelegt
