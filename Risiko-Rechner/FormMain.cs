@@ -116,7 +116,7 @@ namespace Risiko_Rechner
             }
         }
 
-        private void LoadUnits(object sender, EventArgs e)
+        private void loadUnits(object sender, EventArgs e)
         {
             // csv einlesen
             Unitserzeugen(@"..\..\Units.csv");
