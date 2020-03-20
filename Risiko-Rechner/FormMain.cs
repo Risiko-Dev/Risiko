@@ -51,7 +51,7 @@ namespace Risiko_Rechner
             armee.Stacks.Reverse();
         }
 
-        private bool UnitsMissing()
+        private bool unitsMissing()
         {
             var groupBoxes = this.Controls
             .OfType<GroupBox>();
