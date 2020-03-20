@@ -110,7 +110,7 @@ namespace Risiko_Rechner
             return _playerTwo.LowestDice() >= _playerOne.LowestDice() ? _playerTwo : _playerOne;
         }
 
-        private void TestWithdraw()
+        private void testWithdraw()
         {
             Unit attackerUnit = _playerOne.TopStack().StackUnit;
             Unit defenderUnit = _playerTwo.TopStack().StackUnit;
