@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Risiko-Rechner", "Risiko-Rechner\Risiko-Rechner.csproj", "{C05B17C0-8B3E-4F78-BCC8-3833CD046D1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Risiko-Rechner", "src\Risiko-Rechner.csproj", "{878F3741-28A8-48BA-9C36-2EAF089D27AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C05B17C0-8B3E-4F78-BCC8-3833CD046D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C05B17C0-8B3E-4F78-BCC8-3833CD046D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C05B17C0-8B3E-4F78-BCC8-3833CD046D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C05B17C0-8B3E-4F78-BCC8-3833CD046D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{878F3741-28A8-48BA-9C36-2EAF089D27AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{878F3741-28A8-48BA-9C36-2EAF089D27AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{878F3741-28A8-48BA-9C36-2EAF089D27AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{878F3741-28A8-48BA-9C36-2EAF089D27AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4536FD9-C279-4ED0-BC62-8F72CBB9C503}
 	EndGlobalSection
 EndGlobal
