@@ -92,7 +92,7 @@ namespace Risiko_Rechner
 
         }
 
-        private Unit GetUnit(Object item)
+        private Unit getUnit(Object item)
         {
             foreach (var unit in Units)
             {
