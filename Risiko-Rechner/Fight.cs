@@ -18,7 +18,6 @@ namespace Risiko_Rechner
             while (_playerOne.HasValidStack() && _playerTwo.HasValidStack())
             {
                 ExecFullRound();
-                
             }
             string winner = _playerOne.HasValidStack() ? "Spieler 1" : "Spieler 2";
             _reporter.Report(winner + " hat gewonnen.");

@@ -13,7 +13,6 @@ namespace Risiko_Rechner
     {
         public Unit StackUnit { get; private set; }
         public int Count;
-
         private Unit _templateUnit;
 
         /// <summary>
