@@ -22,19 +22,48 @@ namespace Risiko_Rechner
         public int AttackDamage { get; set; }
         public string Name { get; set; }
 
+        private int tAntiArmor;
+        private int tArmor;
+        private int tHitPoints;
+        private int tAttackDamage;
+        private string tName;
+
         public Unit(string name, int hitPoints, int armor, int attackDamage, int antiArmor) 
         {
             Name = name;
+            tName = name;
+
             HitPoints = hitPoints;
+            tHitPoints = hitPoints;
+            
             Armor = armor;
+            tArmor = armor;
+            
             AttackDamage = attackDamage;
+            tAttackDamage = attackDamage;
+            
             AntiArmor = antiArmor;
+            tAntiArmor = antiArmor;
         }
 
-        // this ist hier redundant und kann weggelassen werden.
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        public bool Equals(Unit that)
+        {
+            return this.AntiArmor == that.AntiArmor && this.Armor == that.Armor &&
+                   this.AttackDamage == that.AttackDamage && this.HitPoints == that.HitPoints && this.Name == that.Name;
+        }
+
+        public void Refresh()
+        {
+            Name = tName;
+            HitPoints = tHitPoints;
+            Armor = tArmor;
+            AntiArmor = tAntiArmor;
+            AttackDamage = tAttackDamage;
         }
     }
 }

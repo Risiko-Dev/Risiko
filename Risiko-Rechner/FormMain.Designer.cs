@@ -390,7 +390,7 @@
             this.Controls.Add(this.button1);
             this.Name = "FormMain";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.LoadUnits);
+            this.Load += new System.EventHandler(this.loadUnits);
             ((System.ComponentModel.ISupportInitialize)(this.AttackerUnitNumber1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DefenderUnitNumber6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blub)).EndInit();

@@ -1,209 +1,129 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Risiko_Rechner
 {
-   public  class Fight
+    public class Fight
     {
-        int Round = 0, playerOneUnitsAlive = 0, playerTwoUnitsAlive = 0;
-        Unit playerOneUnit = null, playerTwoUnit = null;
-        bool victory = false;
-        Output outputter = new Output();
-        Armee defenderArmee = new Armee();
-        Armee attackerArmee = new Armee();
+        private enum round { One, Two }
+        private Player _playerOne; 
+        private Player _playerTwo;
+        private Output _reporter;
 
-
-        public void Run(Armee attacker, Armee defender, System.Windows.Forms.TextBox output)
+        public Fight(Player playerOne, Player playerTwo, Output output)
         {
-            outputter.outputTextbox = output;
-            attackerArmee = attacker;
-            defenderArmee = defender;
-            Round = 0;
-            GetUnits();
+            _playerOne = playerOne;
+            _playerTwo = playerTwo;
+            _reporter = output;
+
+            while (_playerOne.HasValidStack() && _playerTwo.HasValidStack())
+            {
+                ExecFullRound();
+            }
+            string winner = _playerOne.HasValidStack() ? "Spieler 1" : "Spieler 2";
+            _reporter.Report(winner + " hat gewonnen.");
+        }
+
+        /* Kampfablauf: -Einheiten prüfen x
+                        -Einheiten ausgeben x
+                        -Würfel prüfen x
+                        -erste Runde
+                        -Einheiten prüfen
+                        -zweite Runde
+                        -Report, Ende
+                        */
+        private void ExecFullRound()
+        {
+            // roll dices
+            _playerOne.ThrowDice();
+            _playerTwo.ThrowDice();
             
-            do
+            // execute first sub round
+            if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
+            execSubRound(round.One);
+            
+            if (_playerOne.HasValidStack()) 
             {
-                Round++;
-                int playerOneDiceOne, playerOneDiceTwo, playerTwoDiceOne, playerTwoDiceTwo;
-                RollDices(out playerOneDiceOne, out playerOneDiceTwo, out playerTwoDiceOne, out playerTwoDiceTwo);
-                outputter.StartupText(playerOneDiceOne, playerTwoDiceOne, playerOneDiceTwo, playerTwoDiceTwo, Round);
-                outputter.HighestDice(playerOneDiceOne, playerOneDiceTwo);
-
-                WuerfelErgebnis(playerOneDiceOne, playerTwoDiceOne); //quick refactor -> da stand 2 mal das selbe ich hab das mal zu ner methode gemacht
-
-                if (!victory && playerOneDiceTwo > 0 && playerTwoDiceTwo > 0)
-                {
-                    outputter.SecondHighestDice(playerTwoDiceOne, playerTwoDiceTwo);
-                    WuerfelErgebnis(playerOneDiceTwo, playerTwoDiceTwo);
-                }
-
-            } while ((playerOneUnitsAlive > 0 && playerTwoUnitsAlive > 0) && !victory);
-        }
-
-        private void GetUnits()
-        {
-            playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
-            playerOneUnitsAlive = attackerArmee.NumberOfUnit[0];
-            playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
-            playerTwoUnitsAlive = defenderArmee.NumberOfUnit[0];
-        }
-
-        private void RollDices(out int playerOneDiceOne, out int playerOneDiceTwo, out int playerTwoDiceOne, out int playerTwoDiceTwo)
-        {
-            List<int> playerOneDices = new List<int>();
-            List<int> PlayerTwoDices = new List<int>();
-
-            Random Wuerfel = new Random();
-            playerOneDices.Clear();
-            PlayerTwoDices.Clear();
-
-            playerOneDiceOne = Wuerfel.Next(1, 7);
-            playerOneDiceTwo = Wuerfel.Next(1, 7);
-            var playerOneDiceThree = Wuerfel.Next(1, 7);
-
-            playerTwoDiceOne = Wuerfel.Next(1, 7);
-            playerTwoDiceTwo = Wuerfel.Next(1, 7);
-            playerOneDices.Add(playerOneDiceOne);
-            playerOneDices.Add(playerOneDiceTwo);
-            playerOneDices.Add(playerOneDiceThree);
-
-            PlayerTwoDices.Add(playerTwoDiceOne);
-            PlayerTwoDices.Add(playerTwoDiceTwo);
-
-            playerOneDices.Sort();
-            PlayerTwoDices.Sort();
-
-            playerOneDiceOne = playerOneDices[2];
-            playerTwoDiceOne = PlayerTwoDices[1];
-            CheckIfEnoughUnits(out playerOneDiceTwo, out playerTwoDiceTwo, playerOneDices, PlayerTwoDices);
-        }
-
-        private void CheckIfEnoughUnits(out int playerOneDiceTwo, out int playerTwoDiceTwo, List<int> playerOneDices, List<int> PlayerTwoDices)
-        {
-            if (playerOneUnitsAlive > 1)
-            {
-                playerOneDiceTwo = playerOneDices[1];
+                _reporter.Report("Spieler 1: Top Stack: " + _playerOne.TopStack());
             }
             else
             {
-                playerOneDiceTwo = -1;
+                _reporter.Report("Spieler 1: Top Stack: 0");
+                return;
             }
 
-            if (playerTwoUnitsAlive > 1)
+            if (_playerTwo.HasValidStack())
             {
-                playerTwoDiceTwo = PlayerTwoDices[0];
+                _reporter.Report("Spieler 2: Top Stack: " + _playerTwo.TopStack());
             }
             else
             {
-                playerTwoDiceTwo = -1;
+                _reporter.Report("Spieler 2: Top Stack: 0");
+                return;
             }
-        }
 
-        private void WuerfelErgebnis(int spieler11, int spieler21)
-        {
-            string withdrawer = string.Empty;
-            var withdrawal = false;
+            execSubRound(round.Two);
 
-            if (spieler11 > spieler21)
+            if (_playerOne.HasValidStack())
             {
-                withdrawal = outputter.Fight("Angreifer", "Verteidiger", playerOneUnit, playerTwoUnit, out playerTwoUnit, out withdrawer);
+                _reporter.Report("Spieler 1: Top Stack: " + _playerOne.TopStack());
             }
             else
             {
-                withdrawal = outputter.Fight("Verteidiger", "Angreifer", playerTwoUnit, playerOneUnit, out playerOneUnit, out withdrawer);
+                _reporter.Report("Spieler 1: Top Stack: 0");
             }
 
-            if (!withdrawal)
+            if (_playerTwo.HasValidStack())
             {
-                KillCheck(playerOneUnit.HitPoints, playerTwoUnit.HitPoints);
-                VictoryCheck();
+                _reporter.Report("Spieler 2: Top Stack: " + _playerTwo.TopStack());
             }
             else
             {
-                if (withdrawer == "Verteidiger")
-                {
-                    NextUnits(defenderArmee, 2);
-                }
-                else
-                {
-                    NextUnits(attackerArmee, 1);
-                }
+                _reporter.Report("Spieler 2: Top Stack: 0");
             }
         }
 
-        private void KillCheck(int playerOneUnitHitpoints, int playerTwoUnitHitpoints)
+        private void execSubRound(round round)
         {
-            if (playerOneUnitHitpoints <= 0)
-            {
-                playerOneUnitsAlive--;
-                if (playerOneUnitsAlive == 0)
-                {
-                    outputter.UnitDeath(playerOneUnitsAlive, "Angreifer", playerOneUnit);
-                }
-                playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
-            }
+            if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
+         
+            testWithdraw();
 
-            if (playerTwoUnitHitpoints <= 0)
+            if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
+            if (decideAttacker(round) == _playerOne)
             {
-                playerTwoUnitsAlive--;
-                if (playerTwoUnitsAlive == 0)
-                { 
-                    outputter.UnitDeath(playerTwoUnitsAlive, "Verteidiger", playerTwoUnit);
-                }
-                playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
-            }
-        }
-
-        private void VictoryCheck()
-        {
-            if (playerOneUnitsAlive <= 0)
-            {
-                if (attackerArmee.NumberOfUnit.Count > 0)
-                {
-                    NextUnits(attackerArmee, 1);
-                    return;
-                }
-                outputter.Victory("Verteidiger");
-                victory = true;
-            }
-
-            if (playerTwoUnitsAlive <= 0)
-            {
-                if (attackerArmee.NumberOfUnit.Count > 0)
-                {
-                    NextUnits(defenderArmee, 0);
-                    return;
-                }
-                outputter.Victory("Angreifer");
-                victory = true;
-            }
-        }
-
-        private void NextUnits(Armee armee, int player)
-        {
-            armee.NumberOfUnit.RemoveAt(0);
-            armee.Units.RemoveAt(0);
-            if (armee.Units.Count == 0)
-            {
-                victory = true;
-                var victor = player == 1 ? "Verteidiger" : "Angreifer";
-                outputter.Victory(victor);
+                _playerTwo.GetDamage(_playerOne);
             }
             else
             {
-                if (player == 1)
-                {
-                    playerOneUnit = (Unit)attackerArmee.Units[0].Clone();
-                    playerOneUnitsAlive = attackerArmee.NumberOfUnit[0];
-                }
-                else
-                {
-                    playerTwoUnit = (Unit)defenderArmee.Units[0].Clone();
-                    playerTwoUnitsAlive = defenderArmee.NumberOfUnit[0];
-                }
+                _playerOne.GetDamage(_playerTwo);
+            }
+        }
+
+        private Player decideAttacker(round round)
+        {
+            if (round == round.One)
+            {
+                return _playerTwo.HighestDice() >= _playerOne.HighestDice() ? _playerTwo : _playerOne;
+            }
+
+            return _playerTwo.LowestDice() >= _playerOne.LowestDice() ? _playerTwo : _playerOne;
+        }
+
+        private void testWithdraw()
+        {
+            Unit attackerUnit = _playerOne.TopStack().StackUnit;
+            Unit defenderUnit = _playerTwo.TopStack().StackUnit;
+
+            bool attackerWithdraws = attackerUnit.AttackDamage + attackerUnit.AntiArmor <= defenderUnit.Armor;
+            bool defenderWithdraws = defenderUnit.AttackDamage + defenderUnit.AntiArmor <= attackerUnit.Armor;
+
+            if (attackerWithdraws)
+            {
+                _playerOne.WithdrawTopStack();
+            }
+            if (defenderWithdraws)
+            {   
+                _playerTwo.WithdrawTopStack();
             }
         }
     }

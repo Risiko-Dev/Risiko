@@ -8,12 +8,19 @@ namespace Risiko_Rechner
 { 
     public class Armee 
     {
+        public List<Stack> Stacks { get; private set; }
+
+        /// <summary>
+        /// Initialisiert ein Skelett der Armee-Klasse.
+        /// </summary>
         public Armee()
         {
-            this.Units = new List<Unit>();
-            this.NumberOfUnit = new List<int>();
+            Stacks = new List<Stack>();
         }
-        public List<Unit> Units { get; set; }
-        public List<int> NumberOfUnit { get; set; }
+
+        public bool Equals(Armee that)
+        {
+            return this.Stacks.SequenceEqual(that.Stacks);
+        }
     }
 }
