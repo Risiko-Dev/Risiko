@@ -4,7 +4,7 @@ namespace Risiko_Rechner
 {
     public class Fight
     {
-        private enum Round { One, Two }
+        private enum round { One, Two }
         private Player _playerOne; 
         private Player _playerTwo;
         private Output _reporter;
