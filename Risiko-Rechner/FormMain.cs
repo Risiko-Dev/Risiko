@@ -129,7 +129,7 @@ namespace Risiko_Rechner
             SetupGUI();
             Textausgabe.Text = "Alle Truppen bereit zu kämpfen, wählen sie ihre Einheiten!" + Environment.NewLine;
         }
-        private void SetupGUI()
+        private void setupGUI()
         {
             var comboBoxes = this.Controls
             .OfType<ComboBox>()
