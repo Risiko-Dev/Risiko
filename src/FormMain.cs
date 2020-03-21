@@ -18,9 +18,6 @@ namespace Risiko_Rechner
         private Player attackerPlayer;
         private Player defenderPlayer;
 
-        Armee attackerArmy = new Armee();
-        Armee defenderArmy = new Armee();
-
         Output reporter = new Output();
 
         public FormMain()
@@ -39,8 +36,8 @@ namespace Risiko_Rechner
 
             if (!UnitMissing)
             {
-                swap(attackerArmy);
-                swap(defenderArmy);
+                swap(attackerPlayer.Armee);
+                swap(defenderPlayer.Armee);
 
                 Fight calculation = new Fight(attackerPlayer, defenderPlayer, reporter);
             }
@@ -56,19 +53,9 @@ namespace Risiko_Rechner
             var groupBoxes = this.Controls
             .OfType<GroupBox>();
 
-            List<ComboBox> comboBoxes = new List<ComboBox>();
-            List<NumericUpDown> unitnumbers = new List<NumericUpDown>(); ;
-
-            foreach (var item in groupBoxes)
-            {
-                 comboBoxes.AddRange(item.Controls
-                .OfType<ComboBox>()
-                .Where(x => x.Name.Contains("UnitBox")).ToList()); //finde alle Comboboxen die fürs einheiten auswählen sind
-                
-                unitnumbers.AddRange(item.Controls
-                .OfType<NumericUpDown>()
-                .Where(x => x.Name.Contains("UnitNumber")).ToList()); //finde alle NumericUpDowns die fürs einheiten auswählen sind
-            }
+            List<ComboBox> comboBoxes;
+            List<NumericUpDown> unitnumbers;
+            getGroupboxes(groupBoxes, out comboBoxes, out unitnumbers);
 
             var count = 0;
             foreach (var combobox in comboBoxes) //check ob in einem Feld ne unit ausgewählt is und anzahl größer 0
@@ -88,8 +75,26 @@ namespace Risiko_Rechner
                 }
                 count++;
             }
-            return (reporter.Missing(attackerArmy, "Angreifer") && reporter.Missing(attackerArmy, "Verteidiger"));
+            return (reporter.Missing(attackerPlayer.Armee, "Angreifer") && reporter.Missing(defenderPlayer.Armee, "Verteidiger"));
 
+        }
+
+        private static void getGroupboxes(IEnumerable<GroupBox> groupBoxes, out List<ComboBox> comboBoxes, out List<NumericUpDown> unitnumbers)
+        {
+            comboBoxes = new List<ComboBox>();
+            unitnumbers = new List<NumericUpDown>();
+            ;
+
+            foreach (var item in groupBoxes)
+            {
+                comboBoxes.AddRange(item.Controls
+               .OfType<ComboBox>()
+               .Where(x => x.Name.Contains("UnitBox")).ToList()); //finde alle Comboboxen die fürs einheiten auswählen sind
+
+                unitnumbers.AddRange(item.Controls
+                .OfType<NumericUpDown>()
+                .Where(x => x.Name.Contains("UnitNumber")).ToList()); //finde alle NumericUpDowns die fürs einheiten auswählen sind
+            }
         }
 
         private Unit getUnit(Object item)
@@ -244,8 +249,8 @@ namespace Risiko_Rechner
             {
                 item.Value = 0;
             }
-            attackerArmy = new Armee();
-            defenderArmy = new Armee();
+            attackerPlayer.Armee.Stacks.Clear();
+            defenderPlayer.Armee.Stacks.Clear();
             setupGUI();
         }
 
