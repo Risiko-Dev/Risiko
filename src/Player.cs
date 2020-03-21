@@ -108,6 +108,11 @@ namespace Risiko_Rechner
             return Armee.Stacks.Count > 0;
         }
 
+        public bool TopStackIsValid()
+        {
+            return TopStack().Count > 0;
+        }
+
         /// <summary>
         /// Sortiert die Würfelliste, und kürzt sie auf zwei Zahlen.
         /// </summary>
@@ -159,10 +164,15 @@ namespace Risiko_Rechner
                 TopStack().KillFirst();
             }
 
-            if (TopStack().Count <= 0)
+            if (!TopStackIsValid())
             {
-                Armee.Stacks.RemoveAt(0);
+                KillTopStack();
             }
+        }
+
+        public void KillTopStack()
+        {
+            Armee.Stacks.RemoveAt(0);
         }
 
         public void WithdrawTopStack()

@@ -11,6 +11,18 @@ namespace Risiko_Rechner
     {
         public TextBox outputTextbox;
 
+        public void ReportDices(List<int> list)
+        {
+            list.ForEach(x => { outputTextbox.Text += x + ", ";});
+        }
+
+        public void ReportDices(string player, List<int> list)
+        {
+            outputTextbox.Text += player + ": ";
+            list.ForEach(x => { outputTextbox.Text += x + ", "; });
+            outputTextbox.Text += Environment.NewLine;
+        }
+
         public void ReportRound()
         {
             outputTextbox.Text += "Runde absolviert." + Environment.NewLine;
