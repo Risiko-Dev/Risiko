@@ -24,20 +24,20 @@ namespace Risiko_Rechner
         public bool Missing(Armee armee, string player)
         {
             var somethingMissing = false;
-            try
+            if (armee.Stacks.Count == 0)
             {
-                foreach (Stack stack in armee.Stacks)
-                {
-                    if (stack.Count != 0) continue;
+                outputTextbox.Text += $"{player}, du hast keine Truppen ausgewählt! \r\n";
+                somethingMissing = true;
+            }
 
-                    outputTextbox.Text += $"{player}, gib deine Truppenzahl der {stack.StackUnit.Name} an!";
-                    somethingMissing = true;
-                }
-            }
-            catch (Exception)
+            foreach (Stack stack in armee.Stacks)
             {
-                MessageBox.Show("Fehler ist aufgetreten");
+                if (stack.Count != 0) continue;
+
+                outputTextbox.Text += $"{player}, gib deine Truppenzahl der {stack.StackUnit.Name} an!";
+                somethingMissing = true;
             }
+
             return somethingMissing;
         }
 
@@ -93,7 +93,7 @@ namespace Risiko_Rechner
             outputTextbox.Text += $"höchster Angreifer Würfel: {playerOneFirstDice}{Environment.NewLine}höchster Verteidiger Würfel: {playerTwoFirstDice}";
         }
 
-        private void MakeSpace( int blankLineAmount)
+        private void MakeSpace(int blankLineAmount)
         {
             for (int i = 0; i < blankLineAmount; i++)
             {
@@ -110,7 +110,7 @@ namespace Risiko_Rechner
 
         public bool UnitDeath(int UnitsAlive, string player, Unit unit)
         {
-            MakeSpace( 2);
+            MakeSpace(2);
             if (UnitsAlive > 0)
             {
                 outputTextbox.Text += $"Der {player} verliert eine Einheit, die nächste rutscht aber schon nach!{Environment.NewLine}{player} hat noch {UnitsAlive} Einheiten übrig.";
