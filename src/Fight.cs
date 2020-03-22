@@ -23,14 +23,6 @@ namespace Risiko_Rechner
             _reporter.Report(winner + " hat gewonnen.");
         }
 
-        /* Kampfablauf: -Einheiten prüfen x
-                        -Einheiten ausgeben x
-                        -Würfel prüfen x
-                        -erste Runde
-                        -Einheiten prüfen
-                        -zweite Runde
-                        -Report, Ende
-                        */
         private void ExecFullRound()
         {
             // roll dices
