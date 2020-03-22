@@ -45,7 +45,8 @@ namespace Risiko_Rechner
         {
             if (Count <= 0)
             {
-                throw new Exception("all units already dead");
+                refreshUnit();
+                return;
             }
             Count--;
             refreshUnit();

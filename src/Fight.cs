@@ -28,6 +28,9 @@ namespace Risiko_Rechner
             // roll dices
             _playerOne.ThrowDice();
             _playerTwo.ThrowDice();
+
+            _reporter.ReportDices("Player 1", _playerOne.DiceList);
+            _reporter.ReportDices("Player 2", _playerTwo.DiceList);
             
             // execute first sub round
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
@@ -77,7 +80,18 @@ namespace Risiko_Rechner
         private void execSubRound(round round)
         {
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
-         
+            if (!_playerOne.TopStackIsValid())
+            {
+                _playerOne.KillTopStack();
+                return;
+            }
+
+            if (!_playerTwo.TopStackIsValid())
+            {
+                _playerTwo.KillTopStack();
+                return;
+            }
+
             testWithdraw();
 
             if (!_playerOne.HasValidStack() || !_playerTwo.HasValidStack()) return;
